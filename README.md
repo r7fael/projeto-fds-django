@@ -20,6 +20,5 @@ As histórias e seus respectivos cenários podem ser acessados e revisados no se
 
 **Sketches do Protótipo Lo-Fi**
 <br>
-<br>
 Disponível através do [Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1&p=f).
 </details>
