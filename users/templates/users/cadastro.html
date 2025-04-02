@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Usuários</title>
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastro de Usuário</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.nome_completo.label_tag }}
+                {{ form.nome_completo }}
+                {{ form.nome_completo.errors }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.tipo_usuario.label_tag }}
+                {{ form.tipo_usuario }}
+                {{ form.tipo_usuario.errors }}
+            </div>
+            
+            <div class="form-group" id="registro-group">
+                {{ form.registro_profissional.label_tag }}
+                {{ form.registro_profissional }}
+                {{ form.registro_profissional.errors }}
+            </div>
+            
+            <div class="form-group" id="paciente-fields" style="display:none;">
+                {{ form.cpf.label_tag }}
+                {{ form.cpf }}
+                {{ form.cpf.errors }}
+                
+                {{ form.data_nascimento.label_tag }}
+                {{ form.data_nascimento }}
+                {{ form.data_nascimento.errors }}
+            </div>
+            
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('id_tipo_usuario').addEventListener('change', function() {
+            const tipo = this.value;
+            const registroGroup = document.getElementById('registro-group');
+            const pacienteFields = document.getElementById('paciente-fields');
+            
+            if (tipo === 'paciente') {
+                registroGroup.style.display = 'none';
+                pacienteFields.style.display = 'block';
+            } else {
+                registroGroup.style.display = 'block';
+                pacienteFields.style.display = 'none';
+                
+                const label = registroGroup.querySelector('label');
+                if (tipo === 'medico') {
+                    label.textContent = 'CRM:';
+                } else if (tipo === 'enfermeiro') {
+                    label.textContent = 'COREN:';
+                } else if (tipo === 'farmaceutico') {
+                    label.textContent = 'CRF:';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
