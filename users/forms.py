@@ -12,8 +12,8 @@ TIPO_USUARIOS = [
 class CadastroUsuario(UserCreationForm):
     tipo_usuario = forms.ChoiceField(choices=TIPO_USUARIOS)
     registro_profissional = forms.CharField(max_length=20, required=False, label="Registro Profissional")
-    cpf = forms.CharField(max_length=14, required=False, label="É paciente? Digite seu CPF")
-    data_nascimento = forms.DateField(required=False, label = "É paciente? Digite sua data de nascimento")
+    cpf = forms.CharField(max_length=14, required=False, label="CPF")
+    data_nascimento = forms.DateField(required=False, label = "Data de Nascimento")
     
     class Meta:
         model = Usuario
@@ -53,3 +53,7 @@ class CadastroUsuario(UserCreationForm):
                 )
                 
         return user
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label='Email')
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
