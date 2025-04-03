@@ -14,8 +14,16 @@ class UsuarioManager(BaseUserManager):
         usuario.set_password(password)
         usuario.save(using = self._db)
         return usuario
-        
-        # Criar Superuser
+
+    def create_superuser(self, email, nome_completo, password=None):
+        usuario = self.create_user(
+            email=email,
+            nome_completo=nome_completo,
+            password=password
+        )
+        usuario.is_admin = True
+        usuario.save(using=self._db)
+        return usuario
 
 class Usuario(AbstractBaseUser):
     email = models.EmailField(
