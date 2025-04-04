@@ -11,17 +11,20 @@ body {
     min-height: 100vh;
 }
 
-
 .coluna-menu-lateral {
     width: 250px;
     background-color: #004b87;
     color: white;
     padding: 20px;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
 }
 
 .lista-navegacao {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .item-menu {
@@ -31,11 +34,11 @@ body {
 .link-menu {
     color: white;
     text-decoration: none;
-    display: flex;
-    align-items: center;
+    display: block; 
     padding: 10px;
     border-radius: 5px;
     transition: background 0.3s;
+    text-align: center;
 }
 
 .link-menu:hover, .link-menu.ativo {
@@ -45,6 +48,7 @@ body {
 .coluna-conteudo-principal {
     flex: 1;
     padding: 30px;
+    overflow-y: auto; 
 }
 
 .cabecalho-pagina {
@@ -60,7 +64,6 @@ body {
     color: #004b87;
     margin: 0;
 }
-
 
 .caixa-notificacoes {
     position: relative;
@@ -99,7 +102,6 @@ body {
     padding: 10px;
 }
 
-
 .cartao {
     background-color: white;
     border-radius: 8px;
@@ -119,11 +121,44 @@ body {
     padding: 0;
 }
 
-.item-consulta, .cartao-paciente {
+.item-consulta {
     background-color: #e6f2ff;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+.cartao-paciente {
+    background-color: #e6f2ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.cartao-paciente .info-paciente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cartao-paciente .dropdown-info {
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    top: 100%;
+    z-index: 10;
+}
+
+.cartao-paciente.ativo .dropdown-info {
+    display: block;
 }
 
 .sem-resultados {

@@ -1,8 +1,7 @@
 from django.urls import path
 from . import views
-from pacientes.views import cadastrar_paciente
+from pacientes.views import cadastrar_paciente, medico_pacientes
 
-app_name = 'application'
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -10,4 +9,5 @@ urlpatterns = [
     path('painel-medico/', views.painel_medico, name='painel_medico'),
     path('painel-enfermeiro/', views.painel_enfermeiro, name='painel_enfermeiro'),
     path('cadastrar-paciente/', cadastrar_paciente, name='cadastrar_paciente'),
+    path('medico-pacientes/', medico_pacientes, name='medico_pacientes'),
 ]

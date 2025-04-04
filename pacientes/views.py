@@ -24,8 +24,11 @@ def cadastrar_paciente(request):
 
     enfermeiro = Enfermeiro.objects.get(usuario=request.user)
 
-    return render(request, 'application/painel_enfermeiro.html', {
+    return render(request, 'application/cadastrar_paciente.html', {
         'form': form,
         'enfermeiro': enfermeiro,
         'notificacoes': Notificacao.objects.filter(lida=False).order_by('-data_criacao')[:5],
     })
+
+def medico_pacientes(request):
+    return render(request, 'application/medico_pacientes.html')

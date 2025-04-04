@@ -1,0 +1,34 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/medico_consultas.css' %}">
+
+<div class="cartao">
+    <div class="corpo-cartao">
+        {% if consultas %}
+        <div class="lista-consultas">
+            {% for consulta in consultas %}
+            <div class="cartao-consulta">
+                <h2 class="nome-paciente">{{ consulta.paciente.nome_completo }}</h2>
+                <button class="botao-dropdown" onclick="toggleDropdown('{{ consulta.id }}')">
+                    Ver mais
+                </button>
+                <div class="dropdown-info" id="dropdown-{{ consulta.id }}">
+                    <p><strong>Data:</strong> {{ consulta.data|date:"d/m/Y H:i" }}</p>
+                    <p><strong>Especialidade:</strong> {{ consulta.especialidade }}</p>
+                    <p><strong>Status:</strong> {{ consulta.status }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="sem-resultados">Nenhuma consulta agendada</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function toggleDropdown(id) {
+        var dropdown = document.getElementById("dropdown-" + id);
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+</script>

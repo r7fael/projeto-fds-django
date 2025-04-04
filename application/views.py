@@ -14,25 +14,23 @@ def cadastro(request):
 @login_required
 def painel_medico(request):
     try:
-        medico = Medico.objects.get(usuario = request.user)
-        
-        consultas = Consulta.objects.filter(medico = medico) .order_by('data')[:5]
-        
-        pacientes = Paciente.objects.filter(medico_responsavel = medico)
+        medico = Medico.objects.get(usuario=request.user)
 
-        notificacoes = Notificacao.objects.filter (medico = medico, lida = False).order_by('-data_criacao')[:5]
-        
+        consultas = Consulta.objects.filter(medico=medico).order_by('data')[:5]
+        pacientes = Paciente.objects.filter(medico_responsavel=medico)
+        notificacoes = Notificacao.objects.filter(medico=medico, lida=False).order_by('-data_criacao')[:5]
+
         context = {
-            'medico' : medico,
-            'consultas' : consultas,
-            'pacientes' : pacientes,
-            'notificacoes' : notificacoes,
+            'medico': medico,
+            'consultas': consultas,
+            'pacientes': pacientes,
+            'notificacoes': notificacoes,
         }
-        
+
         return render(request, 'application/painel_medico.html', context)
-    
+
     except Medico.DoesNotExist:
-        return render (request, 'application/nao_autorizado.html')
+        return render(request, 'application/nao_autorizado.html')
 
 @login_required
 def painel_enfermeiro(request):

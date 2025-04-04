@@ -1,0 +1,105 @@
+.container-principal {
+    display: flex;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.coluna-menu-lateral {
+    width: 250px;
+    background-color: #e0e0e0;
+    padding: 20px;
+}
+
+.conteudo-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.lista-navegacao {
+    list-style: none;
+    padding: 0;
+}
+
+.item-menu {
+    margin-bottom: 15px;
+}
+
+.link-menu {
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.link-menu.ativo {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.coluna-conteudo-principal {
+    flex: 1;
+    padding: 30px;
+}
+
+.titulo-pagina {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.cartao {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.grade-consultas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cartao-consulta {
+    background-color: #ffebe9;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.dados-consulta {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.botao-dropdown {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.botao-dropdown:hover {
+    background-color: #b02a37;
+}
+
+.dropdown-info {
+    display: none;
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sem-resultados {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
