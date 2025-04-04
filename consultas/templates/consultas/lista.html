@@ -1,6 +1,21 @@
-{% extends "application/base.html" %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultas - VitalHub</title>
+</head>
+<body>
+    <h1>Bem-vindo ao VitalHub</h1>
+    <h2>Consultas</h2>
 
-{% block content %}
-<h1>Consultas</h1>
-<p>Em breve, você verá as consultas aqui.</p>
-{% endblock %}
+    <ul>
+        {% for consulta in consultas %}
+            <li>
+                <strong>Consulta de {{ consulta.paciente.usuario.nome_completo }}</strong> - {{ consulta.data|date:"d/m/Y H:i" }}
+            </li>
+        {% empty %}
+            <li>Nenhuma consulta cadastrada.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

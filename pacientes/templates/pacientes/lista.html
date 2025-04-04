@@ -1,0 +1,26 @@
+{% block content %}
+<h1>Meus Pacientes</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>CPF</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paciente in pacientes %}
+        <tr>
+            <td>{{ paciente.usuario.nome_completo }}</td>
+            <td>{{ paciente.get_idade }}</td>
+            <td>{{ paciente.cpf }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum paciente atribuído a você ainda.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

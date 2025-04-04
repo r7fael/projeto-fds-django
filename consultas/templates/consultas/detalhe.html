@@ -1,0 +1,9 @@
+{% block content %}
+<h1>Detalhes da Consulta</h1>
+<p><strong>Paciente:</strong> {{ consulta.paciente.usuario.nome_completo }}</p>
+<p><strong>Médico:</strong> {{ consulta.medico.usuario.nome_completo }}</p>
+<p><strong>Data:</strong> {{ consulta.data|date:"d/m/Y H:i" }}</p>
+<p><strong>Descrição:</strong> {{ consulta.descricao }}</p>
+
+<a href="{% url 'consultas:lista' %}">Voltar para a lista</a>
+{% endblock %}
