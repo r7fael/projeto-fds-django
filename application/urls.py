@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from pacientes.views import cadastrar_paciente
 
+app_name = 'application'
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('cadastro/', views.cadastro, name='cadastro'),

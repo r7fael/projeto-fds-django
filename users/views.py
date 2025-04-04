@@ -29,14 +29,14 @@ def login_usuario(request):
                 login(request, user)
 
                 if Medico.objects.filter(usuario=user).exists():
-                    return redirect('painel_medico')
+                    return redirect('application:painel_medico')
                 elif Enfermeiro.objects.filter(usuario=user).exists():
-                    return redirect('painel_enfermeiro')
+                    return redirect('application:painel_enfermeiro')
                 elif Farmaceutico.objects.filter(usuario=user).exists():
-                    return redirect('painel_farmaceutico')
+                    return redirect('application:painel_farmaceutico')
 
                 messages.warning(request, "Usuário sem perfil associado.")
-                return redirect('login_usuario')
+                return redirect('application:login_usuario')
 
             else:
                 messages.error(request, "Email ou senha inválidos")

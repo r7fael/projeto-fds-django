@@ -10,7 +10,7 @@
             <div class="conteudo-menu">
                 <ul class="lista-navegacao">
                     <li class="item-menu">
-                        <a class="link-menu ativo" href="{% url 'pacientes:cadastrar' %}">
+                        <a class="link-menu" href="{% url 'application:cadastrar_paciente' %}">
                             <i class="icone-plus"></i> Cadastrar Paciente
                         </a>
                     </li>
@@ -55,14 +55,15 @@
 
             <div class="cartao">
                 <div class="cabecalho-cartao">
-                    <h5>Cadastrar Novo Paciente</h5>
+                    <h5>Bem-vindo ao Painel do Enfermeiro</h5>
                 </div>
                 <div class="corpo-cartao">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Cadastrar</button>
-                    </form>
+                    <p>Use o menu ao lado para acessar funcionalidades disponíveis:</p>
+                    <ul>
+                        <li>Cadastrar paciente</li>
+                        <li>Registrar sinais vitais</li>
+                        <li>Agendar exames</li>
+                    </ul>
                 </div>
             </div>
         </div>
