@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+}
+
+.container-principal {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+
+.coluna-menu-lateral {
+    width: 250px;
+    background-color: #004b87;
+    color: white;
+    padding: 20px;
+}
+
+.lista-navegacao {
+    list-style: none;
+    padding: 0;
+}
+
+.item-menu {
+    margin-bottom: 15px;
+}
+
+.link-menu {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.link-menu:hover, .link-menu.ativo {
+    background-color: #006bb3;
+}
+
+.coluna-conteudo-principal {
+    flex: 1;
+    padding: 30px;
+}
+
+.cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e6f2ff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.titulo-pagina {
+    color: #004b87;
+    margin: 0;
+}
+
+
+.caixa-notificacoes {
+    position: relative;
+}
+
+.botao-notificacoes {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #004b87;
+    font-size: 18px;
+    position: relative;
+}
+
+.contador-notificacoes {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+.lista-notificacoes {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    right: 0;
+    top: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+
+.cartao {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.cabecalho-cartao {
+    font-weight: bold;
+    color: #004b87;
+    margin-bottom: 10px;
+}
+
+.lista-consultas, .grade-pacientes {
+    list-style: none;
+    padding: 0;
+}
+
+.item-consulta, .cartao-paciente {
+    background-color: #e6f2ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.sem-resultados {
+    color: gray;
+    font-style: italic;
+}

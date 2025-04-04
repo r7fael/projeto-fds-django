@@ -4,15 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>VitalHub - Bem-vindo</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
 <body>
-    <h1>Bem-vindo ao VitalHub</h1>
-
-    <div class="menu">
-        <a href="{% url 'users:login' %}">Login</a> |
-        <a href="{% url 'users:cadastrar' %}">Cadastro</a>
+    <div class="container">
+        <header>
+            <h1>VitalHub</h1>
+            <p>Seu sistema de gestão hospitalar confiável</p>
+        </header>
+        
+        <main>
+            <div class="intro">
+                <h2>Bem-vindo ao VitalHub</h2>
+                <p>Gerencie consultas, pacientes e medicamentos de forma eficiente e segura.</p>
+            </div>
+            
+            <div class="menu">
+                <a href="{% url 'users:login' %}" class="btn">Login</a>
+                <a href="{% url 'users:cadastrar' %}" class="btn">Cadastro</a>
+            </div>
+        </main>
     </div>
 </body>
 </html>
