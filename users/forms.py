@@ -1,19 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, Medico, Enfermeiro, Farmaceutico, Paciente
+from .models import Usuario, Medico, Enfermeiro, Farmaceutico
+from pacientes.models import Paciente
 
 TIPO_USUARIOS = [
     ('medico', 'Médico'),
     ('enfermeiro', 'Enfermeiro'),
     ('farmaceutico', 'Farmacêutico'),
-    ('paciente', 'Paciente')
 ]
 
 class CadastroUsuario(UserCreationForm):
     tipo_usuario = forms.ChoiceField(choices=TIPO_USUARIOS)
     registro_profissional = forms.CharField(max_length=20, required=False, label="Registro Profissional")
-    cpf = forms.CharField(max_length=14, required=False, label="CPF")
-    data_nascimento = forms.DateField(required=False, label = "Data de Nascimento")
     
     class Meta:
         model = Usuario
@@ -43,13 +41,6 @@ class CadastroUsuario(UserCreationForm):
                 Farmaceutico.objects.create(
                     usuario=user,
                     crf=self.cleaned_data['registro_profissional']
-                )
-                
-            elif tipo == 'paciente':
-                Paciente.objects.create(
-                    usuario=user,
-                    cpf=self.cleaned_data['cpf'],
-                    data_nascimento=self.cleaned_data['data_nascimento']
                 )
                 
         return user
