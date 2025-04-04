@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import LoginForm
 from .forms import CadastroUsuario
+from users.models import Medico
 
 def cadastrar_usuario(request):
     if request.method == 'POST':
@@ -27,6 +28,10 @@ def login_usuario(request):
 
             if user is not None:
                 login(request, user)
+                
+                if Medico.objects.filter(usuario = user).exists():
+                    return redirect('painel_medico')
+                
                 return redirect('pagina_inicial')
             
             else:

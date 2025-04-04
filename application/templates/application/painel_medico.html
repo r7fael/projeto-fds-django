@@ -1,0 +1,98 @@
+{% extends "application/base.html" %}
+
+{% block content %}
+<div class="container-principal">
+    <div class="linha">
+        <div class="coluna-menu-lateral fundo-claro">
+            <div class="conteudo-menu">
+                <h4 class="texto-centralizado">Dr. {{ medico.usuario.nome_completo }}</h4>
+                <hr>
+                <ul class="lista-navegacao">
+                    <li class="item-menu">
+                        <a class="link-menu ativo" href="{% url 'consultas:lista' %}">
+                            <i class="icone-calendario"></i> Consultas
+                        </a>
+                    </li>
+                    <li class="item-menu">
+                        <a class="link-menu" href="{% url 'pacientes:lista' %}">
+                            <i class="icone-paciente"></i> Pacientes
+                        </a>
+                    </li>
+                    <li class="item-menu">
+                        <a class="link-menu" href="{% url 'medicamentos:lista' %}">
+                            <i class="icone-medicamento"></i> Medicamentos
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="coluna-conteudo-principal">
+            <div class="cabecalho-pagina">
+                <h1 class="titulo-pagina">Bem-vindo(a), Dr. {{ medico.usuario.nome_completo }}</h1>
+                
+                <div class="caixa-notificacoes">
+                    <button class="botao-notificacoes" type="button">
+                        <i class="icone-sino"></i>
+                        <span class="contador-notificacoes">{{ notificacoes|length }}</span>
+                    </button>
+                    <div class="lista-notificacoes">
+                        <h6 class="cabecalho-notificacoes">Notificações</h6>
+                        {% for notificacao in notificacoes %}
+                        <a class="item-notificacao" href="{% url 'notificacoes:detalhe' notificacao.id %}">
+                            <small class="data-notificacao">{{ notificacao.data_criacao|date:"d/m H:i" }}</small><br>
+                            {{ notificacao.mensagem }}
+                        </a>
+                        {% empty %}
+                        <span class="sem-notificacoes">Nenhuma notificação</span>
+                        {% endfor %}
+                        <div class="divisor-notificacoes"></div>
+                        <a class="link-todas-notificacoes" href="{% url 'notificacoes:lista' %}">Ver todas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cartao">
+                <div class="cabecalho-cartao">
+                    <h5>Próximas Consultas</h5>
+                </div>
+                <div class="corpo-cartao">
+                    {% if consultas %}
+                    <ul class="lista-consultas">
+                        {% for consulta in consultas %}
+                        <li class="item-consulta">
+                            {{ consulta.data|date:"d/m/Y H:i" }} - {{ consulta.paciente.usuario.nome_completo }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="sem-resultados">Nenhuma consulta agendada</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="cartao">
+                <div class="cabecalho-cartao">
+                    <h5>Seus Pacientes</h5>
+                </div>
+                <div class="corpo-cartao">
+                    {% if pacientes %}
+                    <div class="grade-pacientes">
+                        {% for paciente in pacientes %}
+                        <div class="cartao-paciente">
+                            <div class="info-paciente">
+                                <h6>{{ paciente.nome }}</h6>
+                                <small class="idade-paciente">{{ paciente.get_idade }} anos</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="sem-resultados">Nenhum paciente em tratamento</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
