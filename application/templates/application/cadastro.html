@@ -47,16 +47,6 @@
                 {{ form.registro_profissional.errors }}
             </div>
             
-            <div class="form-group" id="paciente-fields" style="display:none;">
-                {{ form.cpf.label_tag }}
-                {{ form.cpf }}
-                {{ form.cpf.errors }}
-                
-                {{ form.data_nascimento.label_tag }}
-                {{ form.data_nascimento }}
-                {{ form.data_nascimento.errors }}
-            </div>
-            
             <button type="submit">Cadastrar</button>
         </form>
     </div>
@@ -65,23 +55,18 @@
         document.getElementById('id_tipo_usuario').addEventListener('change', function() {
             const tipo = this.value;
             const registroGroup = document.getElementById('registro-group');
-            const pacienteFields = document.getElementById('paciente-fields');
             
-            if (tipo === 'paciente') {
-                registroGroup.style.display = 'none';
-                pacienteFields.style.display = 'block';
-            } else {
+            if (tipo === 'medico') {
                 registroGroup.style.display = 'block';
-                pacienteFields.style.display = 'none';
-                
-                const label = registroGroup.querySelector('label');
-                if (tipo === 'medico') {
-                    label.textContent = 'CRM:';
-                } else if (tipo === 'enfermeiro') {
-                    label.textContent = 'COREN:';
-                } else if (tipo === 'farmaceutico') {
-                    label.textContent = 'CRF:';
-                }
+                registroGroup.querySelector('label').textContent = 'CRM:';
+            } else if (tipo === 'enfermeiro') {
+                registroGroup.style.display = 'block';
+                registroGroup.querySelector('label').textContent = 'COREN:';
+            } else if (tipo === 'farmaceutico') {
+                registroGroup.style.display = 'block';
+                registroGroup.querySelector('label').textContent = 'CRF:';
+            } else {
+                registroGroup.style.display = 'none';
             }
         });
     </script>

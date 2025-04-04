@@ -10,13 +10,18 @@
             <div class="conteudo-menu">
                 <ul class="lista-navegacao">
                     <li class="item-menu">
-                        <a class="link-menu ativo" href="{% url 'consultas:lista' %}">
-                            <i class="icone-calendario"></i> Consultas
+                        <a class="link-menu ativo" href="{% url 'pacientes:cadastrar' %}">
+                            <i class="icone-plus"></i> Cadastrar Paciente
                         </a>
                     </li>
                     <li class="item-menu">
-                        <a class="link-menu" href="{% url 'pacientes:lista' %}">
-                            <i class="icone-paciente"></i> Pacientes
+                        <a class="link-menu" href="#">
+                            <i class="icone-coracao"></i> Sinais Vitais
+                        </a>
+                    </li>
+                    <li class="item-menu">
+                        <a class="link-menu" href="#">
+                            <i class="icone-exame"></i> Agendar Exames
                         </a>
                     </li>
                 </ul>
@@ -25,7 +30,7 @@
 
         <div class="coluna-conteudo-principal">
             <div class="cabecalho-pagina">
-                <h1 class="titulo-pagina">Bem-vindo(a), {{ medico.usuario.nome_completo }}</h1>
+                <h1 class="titulo-pagina">Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}</h1>
                 
                 <div class="caixa-notificacoes">
                     <button class="botao-notificacoes" type="button">
@@ -50,42 +55,14 @@
 
             <div class="cartao">
                 <div class="cabecalho-cartao">
-                    <h5>Próximas Consultas</h5>
+                    <h5>Cadastrar Novo Paciente</h5>
                 </div>
                 <div class="corpo-cartao">
-                    {% if consultas %}
-                    <ul class="lista-consultas">
-                        {% for consulta in consultas %}
-                        <li class="item-consulta">
-                            {{ consulta.data|date:"d/m/Y H:i" }} - {{ consulta.paciente.usuario.nome_completo }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    <p class="sem-resultados">Nenhuma consulta agendada</p>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="cartao">
-                <div class="cabecalho-cartao">
-                    <h5>Seus Pacientes</h5>
-                </div>
-                <div class="corpo-cartao">
-                    {% if pacientes %}
-                    <div class="grade-pacientes">
-                        {% for paciente in pacientes %}
-                        <div class="cartao-paciente">
-                            <div class="info-paciente">
-                                <h6>{{ paciente.nome }}</h6>
-                                <small class="idade-paciente">{{ paciente.get_idade }} anos</small>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <p class="sem-resultados">Nenhum paciente em tratamento</p>
-                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Cadastrar</button>
+                    </form>
                 </div>
             </div>
         </div>

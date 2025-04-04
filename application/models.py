@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import Medico, Paciente
+from users.models import Medico
+from pacientes.models import Paciente
 
 class Consulta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)

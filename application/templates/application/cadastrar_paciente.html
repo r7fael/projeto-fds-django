@@ -1,0 +1,14 @@
+{% extends "application/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+<div class="form-container">
+    <h2>Cadastrar Paciente</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+{% endblock %}
