@@ -1,0 +1,61 @@
+<form method="post" id="form-consulta">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="paciente">Paciente:</label>
+        <select name="paciente" id="paciente" required class="form-control">
+            <option value="" selected>Selecione um paciente</option>
+            {% for paciente in pacientes %}
+                <option value="{{ paciente.id }}">{{ paciente.nome_completo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="medico">Médico:</label>
+        <select name="medico" id="medico" required class="form-control">
+            <option value="" selected>Selecione um médico</option>
+            {% for medico in medicos %}
+                <option value="{{ medico.id }}">{{ medico.usuario.nome_completo }}</option>
+            {% endfor %}
+        </select>
+        <small class="text-danger" id="medico-error" style="display:none;">Por favor, selecione um médico</small>
+    </div>
+
+    <div class="form-group">
+        <label for="data">Data da Consulta:</label>
+        <input type="date" name="data" id="data" required class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <textarea name="descricao" id="descricao" rows="4" required class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar Consulta</button>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form-consulta');
+    const medicoSelect = document.getElementById('medico');
+    const medicoError = document.getElementById('medico-error');
+
+    form.addEventListener('submit', function(e) {
+        if (!medicoSelect.value) {
+            e.preventDefault();
+            medicoError.style.display = 'block';
+            medicoSelect.classList.add('is-invalid');
+            return false;
+        }
+        return true;
+    });
+
+    medicoSelect.addEventListener('change', function() {
+        if (this.value) {
+            medicoError.style.display = 'none';
+            this.classList.remove('is-invalid');
+        }
+    });
+});
+</script>

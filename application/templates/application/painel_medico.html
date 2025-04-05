@@ -2,32 +2,61 @@
 {% load static %}
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/painel_medico.css' %}">
+<link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
+<link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
+<link rel="stylesheet" href="{% static 'css/medico_consultas.css' %}">
 
 <div class="container-principal">
     <aside class="coluna-menu-lateral">
         <ul class="lista-navegacao">
             <li class="item-menu">
-                <a class="link-menu" href="{% url 'consultas:lista' %}">Consultas</a>
+                <a class="link-menu ativo" href="#" onclick="mostrarConteudo('home', this)">Home</a>
             </li>
             <li class="item-menu">
-                <a class="link-menu ativo" href="{% url 'pacientes:medico_pacientes' %}">Pacientes</a>
+                <a class="link-menu" href="#" onclick="mostrarConteudo('consultas', this)">Consultas</a>
             </li>
             <li class="item-menu">
-                <a class="link-menu" href="{% url 'medicamentos:lista' %}">Medicamentos</a>
+                <a class="link-menu" href="#" onclick="mostrarConteudo('pacientes', this)">Pacientes</a>
             </li>
         </ul>
     </aside>
 
     <main class="coluna-conteudo-principal">
         <header class="cabecalho-pagina">
-            <h1 class="titulo-pagina">Bem-vindo(a), {{ medico.usuario.nome_completo }}</h1>
+            <h1 class="titulo-pagina" id="titulo-pagina">Bem-vindo(a), {{ medico.usuario.nome_completo }}</h1>
         </header>
 
-        <section id="conteudo">
+        <section id="home-content">
+            <p>Escolha uma opção no menu lateral para começar.</p>
+        </section>
+
+        <section id="consultas-content" style="display: none;">
+            {% include 'application/medico_consultas.html' %}
+        </section>
+
+        <section id="pacientes-content" style="display: none;">
             {% include 'application/medico_pacientes.html' %}
         </section>
     </main>
 </div>
+
+<script>
+    function mostrarConteudo(tipo, elemento) {
+        document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
+        if (elemento) elemento.classList.add('ativo');
+
+        const secoes = ['home', 'consultas', 'pacientes'];
+        secoes.forEach(sec => {
+            document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
+        });
+
+        const titulo = document.getElementById('titulo-pagina');
+        if (tipo === 'home') {
+            titulo.textContent = "Bem-vindo(a), {{ medico.usuario.nome_completo }}";
+        } else {
+            titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+        }
+    }
+</script>
 
 {% endblock %}

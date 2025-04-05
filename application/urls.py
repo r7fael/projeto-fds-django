@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from pacientes.views import cadastrar_paciente, medico_pacientes
 
+app_name = 'application'
 
 urlpatterns = [
     path('', views.home, name='home'),

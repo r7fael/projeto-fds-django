@@ -2,71 +2,91 @@
 {% load static %}
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/painel_medico.css' %}">
+<link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
+<link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
 
 <div class="container-principal">
-    <div class="linha">
-        <div class="coluna-menu-lateral fundo-claro">
-            <div class="conteudo-menu">
-                <ul class="lista-navegacao">
-                    <li class="item-menu">
-                        <a class="link-menu" href="{% url 'cadastrar_paciente' %}">
-                            <i class="icone-plus"></i> Cadastrar Paciente
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a class="link-menu" href="#">
-                            <i class="icone-coracao"></i> Sinais Vitais
-                        </a>
-                    </li>
-                    <li class="item-menu">
-                        <a class="link-menu" href="#">
-                            <i class="icone-exame"></i> Agendar Exames
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <aside class="coluna-menu-lateral">
+        <ul class="lista-navegacao">
+            <li class="item-menu">
+                <a class="link-menu ativo" href="#" onclick="mostrarConteudo('home', this)">Home</a>
+            </li>
+            <li class="item-menu">
+                <a class="link-menu" href="#" onclick="mostrarConteudo('cadastro', this)">Cadastrar Paciente</a>
+            </li>
+            <li class="item-menu">
+                <a class="link-menu" href="#" onclick="mostrarConteudo('consultas', this)">Cadastrar Consulta</a>
+            </li>
+        </ul>
+    </aside>
 
-        <div class="coluna-conteudo-principal">
-            <div class="cabecalho-pagina">
-                <h1 class="titulo-pagina">Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}</h1>
-                
-                <div class="caixa-notificacoes">
-                    <button class="botao-notificacoes" type="button">
-                        <i class="icone-sino"></i>
-                        <span class="contador-notificacoes">{{ notificacoes|length }}</span>
-                    </button>
-                    <div class="lista-notificacoes">
-                        <h6 class="cabecalho-notificacoes">Notificações</h6>
-                        {% for notificacao in notificacoes %}
-                        <a class="item-notificacao" href="{% url 'notificacoes:detalhe' notificacao.id %}">
-                            <small class="data-notificacao">{{ notificacao.data_criacao|date:"d/m H:i" }}</small><br>
-                            {{ notificacao.mensagem }}
-                        </a>
-                        {% empty %}
-                        <span class="sem-notificacoes">Nenhuma notificação</span>
+    <main class="coluna-conteudo-principal">
+        <header class="cabecalho-pagina">
+            <h1 class="titulo-pagina" id="titulo-pagina">Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}</h1>
+        </header>
+
+        <section id="home-content">
+            <p>Escolha uma opção no menu lateral para começar.</p>
+        </section>
+
+        <section id="cadastro-content" style="display: none;">
+            {% include 'application/cadastrar_paciente.html' %}
+        </section>
+
+        <section id="consultas-content" style="display: none;">
+            <form method="post" action="{% url 'consultas:cadastrar_consulta' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="paciente">Paciente:</label>
+                    <select name="paciente" id="paciente" required>
+                        <option value="" disabled selected>Selecione um paciente</option>
+                        {% for paciente in pacientes %}
+                            <option value="{{ paciente.id }}">{{ paciente.nome_completo }}</option>
                         {% endfor %}
-                        <div class="divisor-notificacoes"></div>
-                        <a class="link-todas-notificacoes" href="{% url 'notificacoes:lista' %}">Ver todas</a>
-                    </div>
+                    </select>
                 </div>
-            </div>
 
-            <div class="cartao">
-                <div class="cabecalho-cartao">
-                    <h5>Bem-vindo ao Painel do Enfermeiro</h5>
+                <div class="form-group">
+                    <label for="medico">Médico:</label>
+                    <select name="medico" id="medico" required>
+                        <option value="" disabled selected>Selecione um médico</option>
+                        {% for medico in medicos %}
+                            <option value="{{ medico.id }}">{{ medico.usuario.nome_completo }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <div class="corpo-cartao">
-                    <p>Use o menu ao lado para acessar funcionalidades disponíveis:</p>
-                    <ul>
-                        <li>Cadastrar paciente</li>
-                        <li>Registrar sinais vitais</li>
-                        <li>Agendar exames</li>
-                    </ul>
+
+                <div class="form-group">
+                    <label for="data">Data:</label>
+                    <input type="date" name="data" id="data" required>
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea name="descricao" id="descricao" required></textarea>
+                </div>
+
+                <button type="submit">Cadastrar Consulta</button>
+            </form>
+        </section>
+    </main>
 </div>
+
+<script>
+    function mostrarConteudo(tipo, elemento) {
+        document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
+        if (elemento) elemento.classList.add('ativo');
+        const secoes = ['home', 'cadastro', 'consultas'];
+        secoes.forEach(sec => {
+            document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
+        });
+        const titulo = document.getElementById('titulo-pagina');
+        if (tipo === 'home') {
+            titulo.textContent = "Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}";
+        } else {
+            titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1).replace('_', ' ');
+        }
+    }
+</script>
+
 {% endblock %}
