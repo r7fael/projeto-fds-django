@@ -1,7 +1,3 @@
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/medico_pacientes.css' %}">
-
 <div class="cartao">
     <div class="corpo-cartao">
         {% if pacientes %}
@@ -9,9 +5,7 @@
             {% for paciente in pacientes %}
             <div class="cartao-paciente">
                 <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
-                <button class="botao-dropdown" onclick="toggleDropdown('{{ paciente.id }}')">
-                    Ver mais
-                </button>
+                <button class="botao-dropdown" data-dropdown-target="dropdown-{{ paciente.id }}">Ver mais</button>
                 <div class="dropdown-info" id="dropdown-{{ paciente.id }}">
                     <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
                     <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
@@ -25,10 +19,3 @@
         {% endif %}
     </div>
 </div>
-
-<script>
-    function toggleDropdown(id) {
-        var dropdown = document.getElementById("dropdown-" + id);
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    }
-</script>

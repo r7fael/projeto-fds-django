@@ -16,7 +16,7 @@ body {
     background-color: #004b87;
     color: white;
     padding: 20px;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -34,21 +34,23 @@ body {
 .link-menu {
     color: white;
     text-decoration: none;
-    display: block; 
+    display: block;
     padding: 10px;
     border-radius: 5px;
     transition: background 0.3s;
     text-align: center;
 }
 
-.link-menu:hover, .link-menu.ativo {
+.link-menu:hover,
+.link-menu.ativo {
     background-color: #006bb3;
 }
 
 .coluna-conteudo-principal {
     flex: 1;
     padding: 30px;
-    overflow-y: auto; 
+    overflow-y: auto;
+    background-color: #f9f9f9;
 }
 
 .cabecalho-pagina {
@@ -104,10 +106,10 @@ body {
 
 .cartao {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .cabecalho-cartao {
@@ -116,52 +118,70 @@ body {
     margin-bottom: 10px;
 }
 
-.lista-consultas, .grade-pacientes {
+.grade-pacientes,
+.grade-consultas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     list-style: none;
     padding: 0;
 }
 
 .item-consulta {
     background-color: #e6f2ff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .cartao-paciente {
     background-color: #e6f2ff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    padding: 15px;
+    border-radius: 8px;
     position: relative;
+    transition: all 0.3s ease;
 }
 
-.cartao-paciente .info-paciente {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nome-paciente {
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.cartao-paciente .dropdown-info {
+.botao-dropdown {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.botao-dropdown:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-info {
     display: none;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
+    margin-top: 10px;
+    background-color: #fff;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    width: 90%;
-    left: 5%;
-    top: 100%;
-    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.cartao-paciente.ativo .dropdown-info {
+.dropdown-info.mostrar {
     display: block;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .sem-resultados {
-    color: gray;
+    text-align: center;
     font-style: italic;
+    color: #777;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
