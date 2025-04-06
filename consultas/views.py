@@ -22,20 +22,20 @@ def cadastrar_consulta(request):
         data_str = request.POST.get('data')
         descricao = request.POST.get('descricao', '').strip()
 
-        if not medico_id:
-            messages.error(request, "Por favor, selecione um médico")
-            pacientes = Paciente.objects.all()
-            medicos = Medico.objects.all()
-            return render(request, 'application/cadastrar_consulta.html', {
-                'pacientes': pacientes,
-                'medicos': medicos
-            })
+        print("paciente_id:", paciente_id)
+        print("medico_id:", medico_id)
+        print("data_str:", data_str)
+        print("descricao:", descricao)
+
+        if not paciente_id or not medico_id or not data_str or not descricao:
+            messages.error(request, "Todos os campos devem ser preenchidos.")
+            return redirect('application:painel_enfermeiro')
 
         try:
             paciente = get_object_or_404(Paciente, id=paciente_id)
-            medico = get_object_or_404(Medico, id=medico_id)
-            data = datetime.strptime(data_str, "%Y-%m-%d").replace(hour=12, minute=0)
-            
+            medico = get_object_or_404(Medico, usuario_id=medico_id) 
+            data = datetime.strptime(data_str, "%Y-%m-%d").date()
+
             Consulta.objects.create(
                 paciente=paciente,
                 medico=medico,
@@ -43,15 +43,8 @@ def cadastrar_consulta(request):
                 descricao=descricao
             )
             messages.success(request, "Consulta cadastrada com sucesso!")
-            return redirect('application:painel_enfermeiro')
-            
+
         except Exception as e:
             messages.error(request, f"Erro ao cadastrar consulta: {str(e)}")
-            return redirect('application:cadastrar_consulta')
-    
-    pacientes = Paciente.objects.all()
-    medicos = Medico.objects.all()
-    return render(request, 'application/cadastrar_consulta.html', {
-        'pacientes': pacientes,
-        'medicos': medicos
-    })
+
+    return redirect('application:painel_enfermeiro')

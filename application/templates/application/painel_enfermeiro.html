@@ -5,6 +5,16 @@
 <link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
 <link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
 
+{% if messages %}
+<div class="mensagens">
+    {% for message in messages %}
+        <div class="alerta {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container-principal">
     <aside class="coluna-menu-lateral">
         <ul class="lista-navegacao">

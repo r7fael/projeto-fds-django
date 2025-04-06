@@ -27,7 +27,17 @@
         </header>
 
         <section id="home-content">
-            <p>Escolha uma opção no menu lateral para começar.</p>
+            <div class="caixa-notificacoes-dia">
+                <h2 class="titulo-notificacao-dia">📢 Notificações</h2>
+                <ul class="lista-resumo-notificacoes">
+                    <li class="item-resumo">
+                        📅 Você tem <strong>{{ qtd_consultas_hoje }}</strong> consulta(s) marcada(s) para hoje.
+                    </li>
+                    <li class="item-resumo">
+                        🔁 <strong>{{ qtd_pacientes_retorno }}</strong> paciente(s) precisam de retorno.
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <section id="consultas-content" style="display: none;">
@@ -58,13 +68,16 @@
         }
     }
 
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("botao-dropdown")) {
-            const cartao = event.target.closest(".cartao-paciente");
-            if (cartao) {
-                cartao.classList.toggle("ativo");
-            }
-        }
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".botao-dropdown").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                const targetId = btn.getAttribute("data-dropdown-target");
+                const dropdown = document.getElementById(targetId);
+                if (dropdown) {
+                    dropdown.classList.toggle("mostrar");
+                }
+            });
+        });
     });
 </script>
 

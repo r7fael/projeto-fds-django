@@ -55,21 +55,24 @@ class Usuario(AbstractBaseUser):
         return self.is_admin
 
 class Medico(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     crm = models.CharField(max_length=15, unique=True)
     
     def __str__(self):
         return f"{self.usuario.nome_completo} (CRM: {self.crm})"
 
 class Enfermeiro(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key= True)
+    id = models.AutoField(primary_key=True)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     coren = models.CharField(max_length=15, unique=True)
     
     def __str__(self):
         return f"{self.usuario.nome_completo} (COREN: {self.coren})"
 
 class Farmaceutico(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     crf = models.CharField(max_length=15, unique=True)
     
     def __str__(self):

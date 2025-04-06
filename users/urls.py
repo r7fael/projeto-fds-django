@@ -7,4 +7,5 @@ urlpatterns = [
     path('cadastrar/', views.cadastrar_usuario, name='cadastrar'),
     path('login/', views.login_usuario, name='login'),
     path('application/', include('application.urls')),
+    path('login/', views.login_usuario, name='login_usuario'),
 ]

@@ -1,10 +1,12 @@
+<h1>DEBUG TEMPLATE</h1>
+
 <form method="post" id="form-consulta">
     {% csrf_token %}
 
     <div class="form-group">
         <label for="paciente">Paciente:</label>
         <select name="paciente" id="paciente" required class="form-control">
-            <option value="" selected>Selecione um paciente</option>
+            <option value="" disabled>Selecione um paciente</option>
             {% for paciente in pacientes %}
                 <option value="{{ paciente.id }}">{{ paciente.nome_completo }}</option>
             {% endfor %}
@@ -13,8 +15,8 @@
 
     <div class="form-group">
         <label for="medico">Médico:</label>
-        <select name="medico" id="medico" required class="form-control">
-            <option value="" selected>Selecione um médico</option>
+        <select name="medico" id="medico" required>
+            <option value="" disabled selected>Selecione um médico</option>
             {% for medico in medicos %}
                 <option value="{{ medico.id }}">{{ medico.usuario.nome_completo }}</option>
             {% endfor %}

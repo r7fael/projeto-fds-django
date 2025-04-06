@@ -1,5 +1,4 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
 <div class="cartao">
     <div class="corpo-cartao">
         {% if pacientes %}
@@ -7,8 +6,8 @@
             {% for paciente in pacientes %}
             <div class="cartao-paciente">
                 <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
-                <button class="botao-dropdown" data-dropdown-target="dropdown-{{ paciente.id }}">Ver mais</button>
-                <div class="dropdown-info" id="dropdown-{{ paciente.id }}">
+                <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">Ver mais</button>
+                <div class="dropdown-info" id="dropdown-paciente-{{ paciente.id }}">
                     <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
                     <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
                     <p><strong>Médico Responsável:</strong> {{ paciente.medico_responsavel.usuario.nome_completo }}</p>

@@ -1,5 +1,5 @@
 {% load static %}
-<form method="post">
+<form method="post" action="{% url 'pacientes:cadastrar' %}">
     {% csrf_token %}
     
     <div class="form-group">
@@ -20,6 +20,7 @@
     <div class="form-group">
         <label for="medico_responsavel">Médico responsável:</label>
         <select name="medico_responsavel" id="medico_responsavel" required>
+            <option value="" disabled selected>Selecione um médico</option>
             {% for medico in medicos %}
                 <option value="{{ medico.id }}">{{ medico.usuario.nome_completo }}</option>
             {% endfor %}

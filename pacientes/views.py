@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from users.models import Medico, Enfermeiro
-from application.models import Notificacao
+from notificacoes.models import Notificacao
 from pacientes.models import Paciente
 from django.contrib.auth.decorators import login_required
 
@@ -10,6 +10,7 @@ def cadastrar_paciente(request):
     enfermeiro = Enfermeiro.objects.get(usuario=request.user)
 
     if request.method == 'POST':
+        print(request.POST)
         nome_completo = request.POST.get('nome_completo')
         cpf = request.POST.get('cpf')
         data_nascimento = request.POST.get('data_nascimento')
@@ -24,7 +25,7 @@ def cadastrar_paciente(request):
                 medico_responsavel=medico
             )
             messages.success(request, 'Paciente cadastrado com sucesso!')
-            return redirect('pacientes:cadastrar')
+            return redirect('application:painel_enfermeiro')
         else:
             messages.error(request, 'Por favor, preencha todos os campos corretamente.')
 

@@ -13,7 +13,7 @@ class Consulta(models.Model):
         on_delete=models.CASCADE,
         related_name='consultas'
     )
-    data = models.DateTimeField()
+    data = models.DateField()
     descricao = models.TextField()
 
     def __str__(self):
