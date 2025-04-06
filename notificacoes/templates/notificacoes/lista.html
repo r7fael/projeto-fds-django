@@ -1,2 +1,60 @@
-<h1>Notificações</h1>
-<p>Você não tem novas notificações.</p>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Lembretes de Pacientes</h1>
+    
+    <div class="mb-4">
+        <a href="{% url 'lembretes:adicionar_lembrete' %}" class="btn btn-primary">Adicionar Lembrete</a>
+        <a href="{% url 'lembretes:adicionar_paciente' %}" class="btn btn-secondary">Adicionar Paciente</a>
+    </div>
+    
+    {% if lembretes_atrasados %}
+    <div class="card mb-4 border-danger">
+        <div class="card-header bg-danger text-white">
+            <h2>Atrasados</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for lembrete in lembretes_atrasados %}
+                <li class="list-group-item {% if lembrete.prioridade == 3 %}list-group-item-danger{% elif lembrete.prioridade == 2 %}list-group-item-warning{% endif %}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ lembrete.paciente.nome }} - {{ lembrete.get_tipo_display }}</h5>
+                            <p>{{ lembrete.descricao }}</p>
+                            <small class="text-muted">Vencido em: {{ lembrete.data_lembrete|date:"d/m/Y H:i" }}</small>
+                        </div>
+                        <a href="{% url 'lembretes:marcar_concluido' lembrete.id %}" class="btn btn-sm btn-success">Marcar como concluído</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if lembretes_proximos %}
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary text-white">
+            <h2>Próximos Lembretes</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for lembrete in lembretes_proximos %}
+                <li class="list-group-item {% if lembrete.prioridade == 3 %}list-group-item-danger{% elif lembrete.prioridade == 2 %}list-group-item-warning{% endif %}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ lembrete.paciente.nome }} - {{ lembrete.get_tipo_display }}</h5>
+                            <p>{{ lembrete.descricao }}</p>
+                            <small class="text-muted">Data: {{ lembrete.data_lembrete|date:"d/m/Y H:i" }}</small>
+                        </div>
+                        <a href="{% url 'lembretes:marcar_concluido' lembrete.id %}" class="btn btn-sm btn-success">Marcar como concluído</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
