@@ -75,8 +75,9 @@ Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
 **Sprint Jira**
-![sprint](c:\Users\Clarissa\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\TempState\F5E298925DABA7141E05EF336AE52E30\Imagem do WhatsApp de 2025-04-07 à(s) 18.53.10_895d230d.jpg)
+
+**Sprint**
 
 **Backlog**
-![backlog](c:\Users\Clarissa\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\TempState\49CEA6B66A1C9D9FCBBA8946453C057B\Imagem do WhatsApp de 2025-04-07 à(s) 18.53.22_12303a3a.jpg)
+
 
