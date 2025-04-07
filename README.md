@@ -78,3 +78,6 @@ Plataforma de comunicação:
 
 [![VitalHub Board](a1089f05-a514-434d-bc24-601212accf4d.jpg)](a1089f05-a514-434d-bc24-601212accf4d.jpg)
 
+**BackLog**
+
+[![VitalHub BackLog](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)
