@@ -28,9 +28,6 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
   <li>
     <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school
     </li>
-    <li>
-      <a href="https://youtu.be/8dxMvll2nRw"> Sreen Cast Entrega 2 </a>
-    </li>
 </ul>
 
 # Links 🔗
@@ -39,6 +36,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 [Link Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
 
+[Link Screen Cast Entrega 2](https://youtu.be/8dxMvll2nRw)
 # Entregas 📃
 
 <details>
@@ -87,4 +85,3 @@ Plataforma de comunicação:
 **Painel**
 
 [![VitalHub BackLog](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)
-
