@@ -33,7 +33,6 @@ jobs:
         run: pip install -r requirements.txt
       - name: Cleaning testing files
         run: |
-          cd projeto-fds-django/
           rm -f db.sqlite3
           if [ -f .env ]; then rm .env; fi
           cd ..
@@ -42,10 +41,9 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          cd projeto-fds-django/
           zip release.zip ./* -r
           cd ..
-          mv projeto-fds-django/release.zip .
+          mv release.zip .
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
