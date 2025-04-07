@@ -33,9 +33,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Cleaning testing files
         run: |
-          rm -f db.sqlite3
-          if [ -f .env ]; then rm .env; fi
-          cd ..
+          rm db.sqlite3
+          rm .env
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
