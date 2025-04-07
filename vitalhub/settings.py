@@ -20,23 +20,28 @@ if NOT_PROD:
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-x&h@^i-0_gd!&-ww@$ux!=w0qmudn0aea7_9s)_zq*+i*ny20p'
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') + ['localhost', '127.0.0.1', '[::1]']
+    ALLOWED_HOSTS = [*]
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    CSRF_TRUSTED_ORIGINS = [
-    'https://*.azurewebsites.net',
-    'https://vitalhub.azurewebsites.net'
-    ]
 
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
+    ALLOWED_HOSTS = [
+        'vitalhub.azurewebsites.net',
+        '.azurewebsites.net',
+        'localhost',
+        '127.0.0.1',
+        '[::1]'
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+    'https://*.azurewebsites.net',
+    'https://vitalhub.azurewebsites.net'
+    ]
 
     SECURE_SSL_REDIRECT = \
         os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
