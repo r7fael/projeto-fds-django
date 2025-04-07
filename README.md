@@ -28,6 +28,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
   <li>
     <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school
     </li>
+    <li>
       <a href="https://youtu.be/8dxMvll2nRw"> Sreen Cast Entrega 2 </a>
     </li>
 </ul>
