@@ -4,9 +4,11 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 # Tecnologias presentes
 
+**Framework**:<br>![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+
 **Linguagens**:<br>![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-**Front-end**:<br>![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+**Front-end**:<br>![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
 <details>
 <summary>Entrega 1</summary>
@@ -40,6 +42,7 @@ Disponível no [YouTube](https://youtu.be/6gyYWU2fwVU)
 
 **Programação em par**
 <br>
-Plataformas de comunicação: <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+Plataformas de comunicação:
+<br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
-O método da programação em par foi ultilizado no começo do desenvolvimento do projeto, em alguns momentos não foi possível ocorrer reuniões por conta de horários que não batiam, mas quando ocorria, faziamos ligações onde um membro compartilhava a tela e os outros iam contribuindo para a construção do código.
+[Relatório da programação em par](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
