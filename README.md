@@ -10,6 +10,30 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 **Front-end**:<br>![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
+# Grupo 🫱🏼‍🫲🏽
+
+<ul>
+  <li>
+    <a href="https://github.com/clarissalopes6">Clarissa Lopes</a> col@cesar.school
+  </li>
+  <li>
+    <a href="https://github.com/pdilha">Rafael Padilha</a> rpfs@cesar.school
+  </li>
+   <li>
+    <a href="https://github.com/PedroGarcez13">Pedro Abner</a> pastdcg@cesar.school 
+  </li>
+  <li>
+    <a href="https://github.com/fdaniel27">Daniel Alves</a> dfa2@cesar.school 
+  </li>
+  <li>
+    <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school 
+</ul>
+
+# Links 🔗
+[Link Jira](https://projeto-fds.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMWNjYzQ2YTM4N2Y5NDVjMDgxNGViZjBlM2M2NGE4NTgiLCJwIjoiaiJ9)
+
+[Link Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
+
 # Entregas 📃
 
 <details>
@@ -49,31 +73,6 @@ Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
 **Sprint Jira**
-![VitalHub_sprint](https://1drv.ms/i/c/29fd3fb9073f43a7/EUg9h3P41V9CoSmr6FnxHa4BXF8k-G-fKP9kmApFBODCWg?e=NzdljD)
+[VitalHub_sprint](https://1drv.ms/i/c/29fd3fb9073f43a7/EUg9h3P41V9CoSmr6FnxHa4BXF8k-G-fKP9kmApFBODCWg?e=NzdljD)
 **Backlog**
-![VitalHub_Backlog](https://1drv.ms/i/c/29fd3fb9073f43a7/EVewaw5OQ2lEq62q97Q4b5wBR9P9Hh3u-g19xdONjxRcjA?e=eLhmLA)
-
-
-# Grupo 🫱🏼‍🫲🏽
-
-<ul>
-  <li>
-    <a href="https://github.com/clarissalopes6">Clarissa Lopes</a> col@cesar.school
-  </li>
-  <li>
-    <a href="https://github.com/pdilha">Rafael Padilha</a> rpfs@cesar.school
-  </li>
-   <li>
-    <a href="https://github.com/PedroGarcez13">Pedro Abner</a> pastdcg@cesar.school 
-  </li>
-  <li>
-    <a href="https://github.com/fdaniel27">Daniel Alves</a> dfa2@cesar.school 
-  </li>
-  <li>
-    <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school 
-</ul>
-
-# Links 🔗
-[Link Jira](https://projeto-fds.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMWNjYzQ2YTM4N2Y5NDVjMDgxNGViZjBlM2M2NGE4NTgiLCJwIjoiaiJ9)
-
-[Link Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
+[VitalHub_Backlog](https://1drv.ms/i/c/29fd3fb9073f43a7/EVewaw5OQ2lEq62q97Q4b5wBR9P9Hh3u-g19xdONjxRcjA?e=eLhmLA)
