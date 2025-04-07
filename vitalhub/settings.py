@@ -20,13 +20,17 @@ if NOT_PROD:
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-x&h@^i-0_gd!&-ww@$ux!=w0qmudn0aea7_9s)_zq*+i*ny20p'
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') + ['localhost', '127.0.0.1', '[::1]']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    CSRF_TRUSTED_ORIGINS = [
+    'https://*.azurewebsites.net',
+    'https://vitalhub.azurewebsites.net'
+    ]
 
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
