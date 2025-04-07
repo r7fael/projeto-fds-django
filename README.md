@@ -70,14 +70,12 @@ Disponível no [YouTube](https://youtu.be/6gyYWU2fwVU)
 **Programação em par**
 <br>
 [Relatório da programação em par](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
+
 Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
 **Sprint Jira**
-![VitalHub_sprint][def]
+![VitalHub_sprint](c:\Users\Clarissa\OneDrive\Imágenes\Screenshots\Captura de tela 2025-04-07 180512.png)
 
 **Backlog**
-![VitalHub_Backlog][def]
-
-[def]: https://1drv.ms/i/c/29fd3fb9073f43a7/EUg9h3P41V9CoSmr6FnxHa4BXF8k-G-fKP9kmApFBODCWg?e=NzdljD
-[def]: https://1drv.ms/i/c/29fd3fb9073f43a7/EVewaw5OQ2lEq62q97Q4b5wBR9P9Hh3u-g19xdONjxRcjA?e=eLhmLA
+![VitalHub_Backlog](c:\Users\Clarissa\OneDrive\Imágenes\Screenshots\Captura de tela 2025-04-07 180650.png)
