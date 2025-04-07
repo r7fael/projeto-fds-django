@@ -74,10 +74,12 @@ Disponível no [YouTube](https://youtu.be/6gyYWU2fwVU)
 Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
-**Sprint Jira**
+**2º Sprint Jira**
+
+**BackLog**
 
 [![VitalHub Board](a1089f05-a514-434d-bc24-601212accf4d.jpg)](a1089f05-a514-434d-bc24-601212accf4d.jpg)
 
-**BackLog**
+**Painel**
 
 [![VitalHub BackLog](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)
