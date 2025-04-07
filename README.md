@@ -26,7 +26,10 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
     <a href="https://github.com/fdaniel27">Daniel Alves</a> dfa2@cesar.school 
   </li>
   <li>
-    <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school 
+    <a href="https://github.com/DaviFernandoMatias">Davi Fernando</a> dfms3@cesar.school
+    </li>
+      <a href="https://youtu.be/8dxMvll2nRw"> Sreen Cast Entrega 2 </a>
+    </li>
 </ul>
 
 # Links 🔗
@@ -83,3 +86,4 @@ Plataforma de comunicação:
 **Painel**
 
 [![VitalHub BackLog](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)](99f22fd9-2cac-489b-bd34-25f4970d987d.jpg)
+
