@@ -10,38 +10,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 load_dotenv(BASE_DIR / '.env')
-
 TARGET_ENV = os.getenv('TARGET_ENV')
 NOT_PROD = not TARGET_ENV.lower().startswith('prod')
-
 
 if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-x&h@^i-0_gd!&-ww@$ux!=w0qmudn0aea7_9s)_zq*+i*ny20p'
-    ALLOWED_HOSTS = [*]
+    SECRET_KEY = '7!-=ne_wjm4p2g27na0&@pi_5-)+6y(jk24ir+nyu6+en6l9#*'
+    ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-    ALLOWED_HOSTS = [
-        'vitalhub.azurewebsites.net',
-        '.azurewebsites.net',
-        'localhost',
-        '127.0.0.1',
-        '[::1]'
-    ]
-    CSRF_TRUSTED_ORIGINS = [
-    'https://*.azurewebsites.net',
-    'https://vitalhub.azurewebsites.net'
-    ]
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
 
     SECURE_SSL_REDIRECT = \
         os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
