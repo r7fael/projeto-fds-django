@@ -30,6 +30,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 </ul>
 
 # Links 🔗
+
 [Link Jira](https://projeto-fds.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMWNjYzQ2YTM4N2Y5NDVjMDgxNGViZjBlM2M2NGE4NTgiLCJwIjoiaiJ9)
 
 [Link Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
@@ -73,6 +74,10 @@ Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
 **Sprint Jira**
-[VitalHub_sprint](https://1drv.ms/i/c/29fd3fb9073f43a7/EUg9h3P41V9CoSmr6FnxHa4BXF8k-G-fKP9kmApFBODCWg?e=NzdljD)
+![VitalHub_sprint][def]
+
 **Backlog**
-[VitalHub_Backlog](https://1drv.ms/i/c/29fd3fb9073f43a7/EVewaw5OQ2lEq62q97Q4b5wBR9P9Hh3u-g19xdONjxRcjA?e=eLhmLA)
+![VitalHub_Backlog][def]
+
+[def]: https://1drv.ms/i/c/29fd3fb9073f43a7/EUg9h3P41V9CoSmr6FnxHa4BXF8k-G-fKP9kmApFBODCWg?e=NzdljD
+[def]: https://1drv.ms/i/c/29fd3fb9073f43a7/EVewaw5OQ2lEq62q97Q4b5wBR9P9Hh3u-g19xdONjxRcjA?e=eLhmLA
