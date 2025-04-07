@@ -75,7 +75,5 @@ Plataforma de comunicação:
 <br>![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 
 **Sprint Jira**
-![VitalHub_sprint]("C:\Users\Clarissa\OneDrive\Imágenes\Screenshots\Captura de tela 2025-04-07 180512.png")
 
 **Backlog**
-![VitalHub_Backlog]("C:\Users\Clarissa\OneDrive\Imágenes\Screenshots\Captura de tela 2025-04-07 180650.png")
