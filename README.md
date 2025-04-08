@@ -89,3 +89,5 @@ Plataforma de comunicação:
 **Screencast**
 
 [Link Screen Cast Entrega 2](https://youtu.be/8dxMvll2nRw)
+
+[Link do deployment](https://vitalhub.azurewebsites.net/)
