@@ -10,7 +10,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 **Front-end**:<br>![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-# Grupo 🫱🏼‍🫲🏽
+# Equipe 🫱🏼‍🫲🏽
 
 <ul>
   <li>
@@ -20,7 +20,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
     <a href="https://github.com/pdilha">Rafael Padilha</a> rpfs@cesar.school
   </li>
    <li>
-    <a href="https://github.com/PedroGarcez13">Pedro Abner</a> pastdcg@cesar.school 
+    <a href="https://github.com/PedroGarcez13">Pedro Garcez</a> pastdcg@cesar.school 
   </li>
   <li>
     <a href="https://github.com/fdaniel27">Daniel Alves</a> dfa2@cesar.school 
@@ -32,15 +32,15 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 # Links 🔗
 
-[Link Jira](https://projeto-fds.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMWNjYzQ2YTM4N2Y5NDVjMDgxNGViZjBlM2M2NGE4NTgiLCJwIjoiaiJ9)
+[Jira](https://projeto-fds.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMWNjYzQ2YTM4N2Y5NDVjMDgxNGViZjBlM2M2NGE4NTgiLCJwIjoiaiJ9)
 
-[Link Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
+[Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
 
 
 # Entregas 📃
 
 <details>
-<summary>Entrega 1</summary>
+<summary>▸Entrega 1</summary>
 <br>
 
 **Historias**
@@ -66,7 +66,7 @@ Disponível no [YouTube](https://youtu.be/6gyYWU2fwVU)
 </details>
 
 <details>
-<summary>Entrega 2</summary>
+<summary>▸Entrega 2</summary>
 <br>
 
 **Programação em par**
