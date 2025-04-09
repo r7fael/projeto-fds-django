@@ -40,7 +40,7 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 # Entregas 📃
 
 <details>
-<summary>▸Entrega 1</summary>
+<summary>Entrega 1</summary>
 <br>
 
 **Historias**
@@ -66,7 +66,7 @@ Disponível no [YouTube](https://youtu.be/6gyYWU2fwVU)
 </details>
 
 <details>
-<summary>▸Entrega 2</summary>
+<summary>Entrega 2</summary>
 <br>
 
 **Programação em par**
