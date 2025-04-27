@@ -62,8 +62,8 @@ def painel_enfermeiro(request):
     except Enfermeiro.DoesNotExist:
         return render(request, 'application/nao_autorizado.html')
 
-    pacientes = Paciente.objects.all()
-    medicos = Medico.objects.all()
+    pacientes = Paciente.objects.select_related('medico_responsavel__usuario').all()
+    medicos = Medico.objects.select_related('usuario').all()
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
@@ -76,7 +76,7 @@ def painel_enfermeiro(request):
 
             if nome and cpf and data_nascimento and medico_id:
                 try:
-                    medico = Medico.objects.get(usuario_id=medico_id)
+                    medico = Medico.objects.get(id=medico_id)
                     Paciente.objects.create(
                         nome_completo=nome,
                         cpf=cpf,
@@ -86,10 +86,10 @@ def painel_enfermeiro(request):
                     messages.success(request, 'Paciente cadastrado com sucesso!')
                     return redirect('application:painel_enfermeiro')
                 except Exception as e:
-                    messages.error(request, f"Erro ao cadastrar paciente: {str(e)}")
+                    messages.error(request, f'Erro ao cadastrar paciente: {str(e)}')
             else:
                 messages.error(request, 'Por favor, preencha todos os campos do paciente.')
-
+                
         elif form_type == 'consulta':
             paciente_id = request.POST.get('paciente')
             medico_id = request.POST.get('medico')
@@ -112,9 +112,22 @@ def painel_enfermeiro(request):
                     messages.success(request, 'Consulta cadastrada com sucesso!')
                     return redirect('application:painel_enfermeiro')
                 except Exception as e:
-                    messages.error(request, f"Erro ao cadastrar consulta: {str(e)}")
+                    messages.error(request, f'Erro ao cadastrar consulta: {str(e)}')
             else:
                 messages.error(request, 'Por favor, preencha todos os campos da consulta.')
+
+        elif form_type == 'medicamentos':
+            paciente_id = request.POST.get('paciente_id')
+            medicamentos = request.POST.get('medicamentos', '').strip()
+            
+            if paciente_id:
+                try:
+                    paciente = Paciente.objects.get(id=paciente_id)
+                    paciente.medicamentos = medicamentos
+                    paciente.save()
+                    messages.success(request, 'Medicamentos atualizados com sucesso!')
+                except Exception as e:
+                    messages.error(request, f'Erro ao atualizar medicamentos: {str(e)}')
 
     context = {
         'enfermeiro': enfermeiro,

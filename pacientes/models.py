@@ -7,8 +7,9 @@ class Paciente(models.Model):
     cpf = models.CharField(max_length=14, unique=True)
     data_nascimento = models.DateField()
     medico_responsavel = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True, blank=True)
-    precisa_retorno = models.BooleanField(default=False) 
-
+    precisa_retorno = models.BooleanField(default=False)
+    medicamentos = models.TextField(blank=True, null=True, help_text="Lista de medicamentos e dosagens prescritos")
+    
     def __str__(self):
         return f"Paciente: {self.nome_completo}"
     

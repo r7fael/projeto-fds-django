@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
 <link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
+<link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
 
 {% if messages %}
 <div class="mensagens">
@@ -22,6 +23,9 @@
                 <a class="link-menu ativo" href="#" onclick="mostrarConteudo('home', this)">Home</a>
             </li>
             <li class="item-menu">
+                <a class="link-menu" href="#" onclick="mostrarConteudo('pacientes', this)">Pacientes</a>
+            </li>
+            <li class="item-menu">
                 <a class="link-menu" href="#" onclick="mostrarConteudo('cadastro', this)">Cadastrar Paciente</a>
             </li>
             <li class="item-menu">
@@ -37,6 +41,43 @@
 
         <section id="home-content">
             <p>Escolha uma opção no menu lateral para começar.</p>
+        </section>
+
+        <section id="pacientes-content" style="display: none;">
+            <div class="cartao">
+                <div class="corpo-cartao">
+                    {% if pacientes %}
+                    <div class="grade-pacientes">
+                        {% for paciente in pacientes %}
+                        <div class="cartao-paciente">
+                            <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
+                            <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">Ver mais</button>
+                            <div class="dropdown-info" id="dropdown-paciente-{{ paciente.id }}">
+                                <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
+                                <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+                                <p><strong>Médico Responsável:</strong> {{ paciente.medico_responsavel.usuario.nome_completo }}</p>
+                                
+                                {% if paciente.medicamentos %}
+                                <div class="secao-medicamentos">
+                                    <h3 class="titulo-medicamentos">Medicamentos Prescritos</h3>
+                                    <div class="lista-medicamentos">
+                                        {{ paciente.medicamentos|linebreaks }}
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="secao-medicamentos">
+                                    <p class="sem-medicamentos">Nenhum medicamento prescrito</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="sem-resultados">Nenhum paciente cadastrado</p>
+                    {% endif %}
+                </div>
+            </div>
         </section>
 
         <section id="cadastro-content" style="display: none;">
@@ -86,7 +127,7 @@
     function mostrarConteudo(tipo, elemento) {
         document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
         if (elemento) elemento.classList.add('ativo');
-        const secoes = ['home', 'cadastro', 'consultas'];
+        const secoes = ['home', 'pacientes', 'cadastro', 'consultas'];
         secoes.forEach(sec => {
             document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
         });
@@ -97,6 +138,18 @@
             titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1).replace('_', ' ');
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".botao-dropdown").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                const targetId = btn.getAttribute("data-dropdown-target");
+                const dropdown = document.getElementById(targetId);
+                if (dropdown) {
+                    dropdown.classList.toggle("mostrar");
+                }
+            });
+        });
+    });
 </script>
 
 {% endblock %}
