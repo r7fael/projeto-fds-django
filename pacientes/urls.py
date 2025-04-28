@@ -11,8 +11,3 @@ urlpatterns = [
     path('paciente/<int:paciente_id>/observacoes/adicionar/', views.adicionar_observacao, name='adicionar_observacao'),
     path('paciente/<int:paciente_id>/observacoes/', views.listar_observacoes, name='listar_observacoes'),
 ]
-
-urlpatterns = [
-    path('registrar-andar/', views.registrar_andar, name='registrar_andar'),
-    path('visualizar-registros/', views.visualizar_registros, name='visualizar_registros'),
-]

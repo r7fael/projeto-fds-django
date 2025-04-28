@@ -175,35 +175,3 @@ def visualizar_paciente(request, paciente_id):
         'observacoes': observacoes,
         'tipos_observacao': ObservacaoSaude.TIPO_CHOICES
     })
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
-from .forms import RegistroAndarForm
-from .models import RegistroPacienteAndar
-
-@login_required
-def registrar_andar(request):
-    if not request.user.groups.filter(name='Enfermeiros').exists():
-        return HttpResponseForbidden("Acesso restrito aos enfermeiros.")
-
-    if request.method == 'POST':
-        form = RegistroAndarForm(request.POST)
-        if form.is_valid():
-            registro = form.save(commit=False)
-            registro.registrado_por = request.user
-            registro.save()
-            return redirect('visualizar_registros')
-    else:
-        form = RegistroAndarForm()
-
-    return render(request, 'registro_andar.html', {'form': form})
-
-
-@login_required
-def visualizar_registros(request):
-    if not request.user.groups.filter(name='Medicos').exists():
-        return HttpResponseForbidden("Acesso restrito aos médicos.")
-
-    registros = RegistroPacienteAndar.objects.all()
-    return render(request, 'visualizar_registros.html', {'registros': registros})
