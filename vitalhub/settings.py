@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'consultas',
     'pacientes',
     'medicamentos',
-    'notificacoes'
+    'notificacoes',
+    'andares'
 ]
 
 AUTH_USER_MODEL = 'users.Usuario'

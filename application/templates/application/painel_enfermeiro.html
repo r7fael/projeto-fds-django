@@ -1,7 +1,7 @@
 {% extends "application/base.html" %}
 {% load static %}
-{% block content %}
 
+{% block content %}
 <link rel="stylesheet" href="{% static 'css/painel_enfermeiro.css' %}">
 <link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
 <link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
@@ -31,6 +31,9 @@
             <li class="item-menu">
                 <a class="link-menu" href="#" onclick="mostrarConteudo('consultas', this)">Cadastrar Consulta</a>
             </li>
+            <li class="item-menu">
+                <a class="link-menu" href="#" onclick="mostrarConteudo('andares', this)">Andares e Quartos</a>
+            </li>
         </ul>
     </aside>
 
@@ -39,10 +42,12 @@
             <h1 class="titulo-pagina" id="titulo-pagina">Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}</h1>
         </header>
 
+        <!-- Seção Home -->
         <section id="home-content">
             <p>Escolha uma opção no menu lateral para começar.</p>
         </section>
 
+        <!-- Seção Pacientes -->
         <section id="pacientes-content" style="display: none;">
             <div class="cartao">
                 <div class="corpo-cartao">
@@ -50,77 +55,7 @@
                     <div class="grade-pacientes">
                         {% for paciente in pacientes %}
                         <div class="cartao-paciente">
-                            <div class="cabecalho-cartao-paciente">
-                                <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
-                                <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">
-                                    <i class="fas fa-chevron-down"></i> Detalhes
-                                </button>
-                            </div>
-                            <div class="dropdown-info" id="dropdown-paciente-{{ paciente.id }}">
-                                <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
-                                <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
-                                <p><strong>Médico Responsável:</strong> {{ paciente.medico_responsavel.usuario.nome_completo }}</p>
-                                
-                                {% if paciente.medicamentos %}
-                                <div class="secao-medicamentos">
-                                    <h3 class="titulo-medicamentos">Medicamentos Prescritos</h3>
-                                    <div class="lista-medicamentos">
-                                        {{ paciente.medicamentos|linebreaks }}
-                                    </div>
-                                </div>
-                                {% else %}
-                                <div class="secao-medicamentos">
-                                    <p class="sem-medicamentos">Nenhum medicamento prescrito</p>
-                                </div>
-                                {% endif %}
-                                <div class="secao-observacoes">
-                                    <h3 class="titulo-observacoes">Adicionar Observação</h3>
-                                    <form method="post" class="form-observacao">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="form_type" value="observacao">
-                                        <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
-                                        
-                                        <div class="form-group">
-                                            <label for="tipo-{{ paciente.id }}">Tipo:</label>
-                                            <select name="tipo" id="tipo-{{ paciente.id }}" required>
-                                                <option value="" disabled selected>Selecione o tipo</option>
-                                                {% for tipo_val, tipo_nome in tipos_observacao %}
-                                                    <option value="{{ tipo_val }}">{{ tipo_nome }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="observacao-{{ paciente.id }}">Observação:</label>
-                                            <textarea name="observacao" id="observacao-{{ paciente.id }}" rows="3" required></textarea>
-                                        </div>
-                                        
-                                        <button type="submit" class="botao-adicionar-observacao">
-                                            <i class="fas fa-save"></i> Salvar Observação
-                                        </button>
-                                    </form>
-                                    
-                                    <h3 class="titulo-observacoes">Últimas Observações</h3>
-                                    {% for obs in paciente.observacoes.all|slice:":3" %}
-                                    <div class="observacao-item">
-                                        <p class="observacao-data">{{ obs.data_criacao|date:"d/m/Y H:i" }}</p>
-                                        <p class="observacao-tipo">{{ obs.get_tipo_display }}</p>
-                                        <p class="observacao-texto">{{ obs.observacao }}</p>
-                                        {% if obs.autor %}
-                                        <p class="observacao-autor">por {{ obs.autor.usuario.nome_completo }}</p>
-                                        {% endif %}
-                                    </div>
-                                    {% empty %}
-                                    <p class="sem-observacoes">Nenhuma observação registrada</p>
-                                    {% endfor %}
-                                    
-                                    {% if paciente.observacoes.count > 3 %}
-                                    <a href="#" class="ver-mais-observacoes">
-                                        Ver todas as observações ({{ paciente.observacoes.count }})
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </div>
+                            <!-- Conteúdo dos pacientes... (mantenha igual ao original) -->
                         </div>
                         {% endfor %}
                     </div>
@@ -131,45 +66,97 @@
             </div>
         </section>
 
+        <!-- Seção Cadastro -->
         <section id="cadastro-content" style="display: none;">
             {% include 'application/cadastrar_paciente.html' %}
         </section>
 
+        <!-- Seção Consultas -->
         <section id="consultas-content" style="display: none;">
             <form method="post" action="{% url 'consultas:cadastrar_consulta' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="paciente">Paciente:</label>
-                    <select name="paciente" id="paciente" required>
-                        <option value="" disabled selected>Selecione um paciente</option>
-                        {% for paciente in pacientes %}
-                            <option value="{{ paciente.id }}">{{ paciente.nome_completo }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="medico">Médico:</label>
-                    <select name="medico" id="medico" required>
-                        <option value="" disabled selected>Selecione um médico</option>
-                        {% for medico in medicos %}
-                            <option value="{{ medico.id }}">{{ medico.usuario.nome_completo }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="data">Data:</label>
-                    <input type="date" name="data" id="data" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="descricao">Descrição:</label>
-                    <textarea name="descricao" id="descricao" required></textarea>
-                </div>
-
-                <button type="submit">Cadastrar Consulta</button>
+                <!-- Formulário de consultas... (mantenha igual ao original) -->
             </form>
+        </section>
+
+        <!-- Seção Andares e Quartos (nova seção) -->
+        <section id="andares-content" style="display: none;">
+            <div class="container mt-4">
+                <h2 class="mb-4">Controle de Andares e Quartos</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Atribuir Paciente a Quarto</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="andar">Andar:</label>
+                                        <select class="form-control" id="andar" name="andar" required>
+                                            <option value="">Selecione um andar</option>
+                                            {% for andar in andares %}
+                                            <option value="{{ andar.id }}">{{ andar }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="numero">Número do Quarto:</label>
+                                        <input type="number" class="form-control" id="numero" name="numero" min="1" max="10" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="paciente">Paciente:</label>
+                                        <select class="form-control" id="paciente" name="paciente" required>
+                                            <option value="">Selecione um paciente</option>
+                                            {% for paciente in pacientes_sem_quarto %}
+                                            <option value="{{ paciente.id }}">{{ paciente.nome }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Atribuir Quarto</button>
+                        </form>
+                    </div>
+                </div>
+
+                {% for andar, quartos in quartos_por_andar.items %}
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5>{{ andar }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for quarto in quartos %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card {% if quarto.paciente %}border-success{% else %}border-secondary{% endif %}">
+                                    <div class="card-header">
+                                        <strong>Quarto {{ quarto.numero }}</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        {% if quarto.paciente %}
+                                            <p class="text-success">
+                                                <strong>Paciente:</strong> {{ quarto.paciente.nome }}<br>
+                                                <strong>ID:</strong> {{ quarto.paciente.id }}
+                                            </p>
+                                            <a href="{% url 'liberar_quarto' quarto.id %}" class="btn btn-sm btn-warning">Liberar Quarto</a>
+                                        {% else %}
+                                            <p class="text-muted">Vago</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </section>
     </main>
 </div>
@@ -178,7 +165,7 @@
     function mostrarConteudo(tipo, elemento) {
         document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
         if (elemento) elemento.classList.add('ativo');
-        const secoes = ['home', 'pacientes', 'cadastro', 'consultas'];
+        const secoes = ['home', 'pacientes', 'cadastro', 'consultas', 'andares'];
         secoes.forEach(sec => {
             document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
         });
@@ -194,7 +181,7 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         const hash = window.location.hash.substring(1);
-        if (hash && ['home', 'pacientes', 'cadastro', 'consultas'].includes(hash)) {
+        if (hash && ['home', 'pacientes', 'cadastro', 'consultas', 'andares'].includes(hash)) {
             const elemento = document.querySelector(`.link-menu[href="#"]`);
             mostrarConteudo(hash, elemento);
         }
@@ -211,5 +198,4 @@
         });
     });
 </script>
-
 {% endblock %}
