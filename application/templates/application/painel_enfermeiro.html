@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'css/painel_enfermeiro.css' %}">
 <link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
-<link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
 <link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
 
 {% if messages %}
@@ -50,8 +50,12 @@
                     <div class="grade-pacientes">
                         {% for paciente in pacientes %}
                         <div class="cartao-paciente">
-                            <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
-                            <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">Ver mais</button>
+                            <div class="cabecalho-cartao-paciente">
+                                <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
+                                <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">
+                                    <i class="fas fa-chevron-down"></i> Detalhes
+                                </button>
+                            </div>
                             <div class="dropdown-info" id="dropdown-paciente-{{ paciente.id }}">
                                 <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
                                 <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
@@ -69,6 +73,53 @@
                                     <p class="sem-medicamentos">Nenhum medicamento prescrito</p>
                                 </div>
                                 {% endif %}
+                                <div class="secao-observacoes">
+                                    <h3 class="titulo-observacoes">Adicionar Observação</h3>
+                                    <form method="post" class="form-observacao">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="observacao">
+                                        <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
+                                        
+                                        <div class="form-group">
+                                            <label for="tipo-{{ paciente.id }}">Tipo:</label>
+                                            <select name="tipo" id="tipo-{{ paciente.id }}" required>
+                                                <option value="" disabled selected>Selecione o tipo</option>
+                                                {% for tipo_val, tipo_nome in tipos_observacao %}
+                                                    <option value="{{ tipo_val }}">{{ tipo_nome }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="observacao-{{ paciente.id }}">Observação:</label>
+                                            <textarea name="observacao" id="observacao-{{ paciente.id }}" rows="3" required></textarea>
+                                        </div>
+                                        
+                                        <button type="submit" class="botao-adicionar-observacao">
+                                            <i class="fas fa-save"></i> Salvar Observação
+                                        </button>
+                                    </form>
+                                    
+                                    <h3 class="titulo-observacoes">Últimas Observações</h3>
+                                    {% for obs in paciente.observacoes.all|slice:":3" %}
+                                    <div class="observacao-item">
+                                        <p class="observacao-data">{{ obs.data_criacao|date:"d/m/Y H:i" }}</p>
+                                        <p class="observacao-tipo">{{ obs.get_tipo_display }}</p>
+                                        <p class="observacao-texto">{{ obs.observacao }}</p>
+                                        {% if obs.autor %}
+                                        <p class="observacao-autor">por {{ obs.autor.usuario.nome_completo }}</p>
+                                        {% endif %}
+                                    </div>
+                                    {% empty %}
+                                    <p class="sem-observacoes">Nenhuma observação registrada</p>
+                                    {% endfor %}
+                                    
+                                    {% if paciente.observacoes.count > 3 %}
+                                    <a href="#" class="ver-mais-observacoes">
+                                        Ver todas as observações ({{ paciente.observacoes.count }})
+                                    </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -137,11 +188,20 @@
         } else {
             titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1).replace('_', ' ');
         }
+        
+        window.location.hash = tipo;
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+        const hash = window.location.hash.substring(1);
+        if (hash && ['home', 'pacientes', 'cadastro', 'consultas'].includes(hash)) {
+            const elemento = document.querySelector(`.link-menu[href="#"]`);
+            mostrarConteudo(hash, elemento);
+        }
+
         document.querySelectorAll(".botao-dropdown").forEach(function(btn) {
-            btn.addEventListener("click", function() {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
                 const targetId = btn.getAttribute("data-dropdown-target");
                 const dropdown = document.getElementById(targetId);
                 if (dropdown) {

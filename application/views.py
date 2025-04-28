@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import Medico, Enfermeiro
 from notificacoes.models import Notificacao
 from consultas.models import Consulta
-from pacientes.models import Paciente
+from pacientes.models import Paciente, ObservacaoSaude
 from datetime import datetime
 from django.utils import timezone
 from notificacoes.utils import gerar_notificacoes_para_medico
@@ -73,6 +73,7 @@ def painel_enfermeiro(request):
             cpf = request.POST.get('cpf')
             data_nascimento = request.POST.get('data_nascimento')
             medico_id = request.POST.get('medico_responsavel')
+            medicamentos = request.POST.get('medicamentos', '')
 
             if nome and cpf and data_nascimento and medico_id:
                 try:
@@ -81,7 +82,8 @@ def painel_enfermeiro(request):
                         nome_completo=nome,
                         cpf=cpf,
                         data_nascimento=data_nascimento,
-                        medico_responsavel=medico
+                        medico_responsavel=medico,
+                        medicamentos=medicamentos
                     )
                     messages.success(request, 'Paciente cadastrado com sucesso!')
                     return redirect('application:painel_enfermeiro')
@@ -128,11 +130,33 @@ def painel_enfermeiro(request):
                     messages.success(request, 'Medicamentos atualizados com sucesso!')
                 except Exception as e:
                     messages.error(request, f'Erro ao atualizar medicamentos: {str(e)}')
+        
+        elif form_type == 'observacao':
+            paciente_id = request.POST.get('paciente_id')
+            tipo = request.POST.get('tipo')
+            observacao_texto = request.POST.get('observacao', '').strip()
+            
+            if paciente_id and tipo and observacao_texto:
+                try:
+                    paciente = Paciente.objects.get(id=paciente_id)
+                    ObservacaoSaude.objects.create(
+                        paciente=paciente,
+                        autor=enfermeiro,
+                        tipo=tipo,
+                        observacao=observacao_texto,
+                        data_criacao=timezone.now()
+                    )
+                    messages.success(request, 'Observação adicionada com sucesso!')
+                except Exception as e:
+                    messages.error(request, f'Erro ao adicionar observação: {str(e)}')
+            else:
+                messages.error(request, 'Por favor, preencha todos os campos da observação.')
 
     context = {
         'enfermeiro': enfermeiro,
         'pacientes': pacientes,
         'medicos': medicos,
+        'tipos_observacao': ObservacaoSaude.TIPO_CHOICES,
     }
 
     return render(request, 'application/painel_enfermeiro.html', context)

@@ -67,43 +67,6 @@ body {
     margin: 0;
 }
 
-.caixa-notificacoes {
-    position: relative;
-}
-
-.botao-notificacoes {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #004b87;
-    font-size: 18px;
-    position: relative;
-}
-
-.contador-notificacoes {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 8px;
-    font-size: 12px;
-    position: absolute;
-    top: -5px;
-    right: -10px;
-}
-
-.lista-notificacoes {
-    display: none;
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    width: 250px;
-    right: 0;
-    top: 30px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-}
-
 .cartao {
     background-color: white;
     border-radius: 10px;
@@ -112,25 +75,12 @@ body {
     margin-bottom: 30px;
 }
 
-.cabecalho-cartao {
-    font-weight: bold;
-    color: #004b87;
-    margin-bottom: 10px;
-}
-
-.grade-pacientes,
-.grade-consultas {
+.grade-pacientes {
     display: flex;
     flex-direction: column;
     gap: 20px;
     list-style: none;
     padding: 0;
-}
-
-.item-consulta {
-    background-color: #e6f2ff;
-    padding: 15px;
-    border-radius: 8px;
 }
 
 .cartao-paciente {
@@ -158,23 +108,6 @@ body {
     gap: 10px;
 }
 
-.botao-observacao {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.botao-observacao:hover {
-    background-color: #3e8e41;
-}
-
 .botao-dropdown {
     display: inline-flex;
     align-items: center;
@@ -197,7 +130,7 @@ body {
     display: none;
     margin-top: 10px;
     background-color: #fff;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -207,35 +140,51 @@ body {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.sem-resultados {
-    text-align: center;
-    font-style: italic;
-    color: #777;
+.form-observacao {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
 }
 
-.caixa-resumo-dia {
-    background-color: #e8f4ff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.05);
-    margin-top: 20px;
-}
-
-.titulo-notificacao-dia {
+.form-observacao .form-group {
     margin-bottom: 15px;
-    color: #004080;
-    font-size: 1.4em;
 }
 
-.lista-resumo {
-    list-style: none;
-    padding-left: 0;
+.form-observacao label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.item-resumo {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #003366;
+.form-observacao select,
+.form-observacao textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.form-observacao textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.botao-adicionar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.botao-adicionar:hover {
+    background-color: #218838;
 }
 
 .secao-observacoes {
@@ -245,7 +194,7 @@ body {
 }
 
 .titulo-observacoes {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
     color: #2c3e50;
 }
@@ -297,6 +246,12 @@ body {
 
 .ver-mais-observacoes:hover {
     text-decoration: underline;
+}
+
+.sem-resultados {
+    text-align: center;
+    font-style: italic;
+    color: #777;
 }
 
 @keyframes fadeIn {

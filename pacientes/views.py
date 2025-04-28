@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from users.models import Medico, Enfermeiro
 from notificacoes.models import Notificacao
-from pacientes.models import Paciente
+from pacientes.models import Paciente, ObservacaoSaude
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.utils import timezone
 
 @login_required
 def cadastrar_paciente(request):
@@ -53,28 +54,124 @@ def medico_pacientes(request):
         pacientes = Paciente.objects.filter(medico_responsavel=medico)\
                                   .select_related('medico_responsavel__usuario')
         
-        if request.method == 'POST' and request.POST.get('form_type') == 'medicamentos':
-            paciente_id = request.POST.get('paciente_id')
-            medicamentos = request.POST.get('medicamentos', '').strip()
-            
-            if paciente_id:
-                try:
-                    paciente = Paciente.objects.get(id=paciente_id, medico_responsavel=medico)
-                    if paciente.medicamentos != medicamentos:
-                        paciente.medicamentos = medicamentos
-                        paciente.save(update_fields=['medicamentos'])
-                        messages.success(request, 'Medicamentos atualizados com sucesso!')
-                    return redirect('application:medico_pacientes')
+        if request.method == 'POST':
+            if request.POST.get('form_type') == 'medicamentos':
+                paciente_id = request.POST.get('paciente_id')
+                medicamentos = request.POST.get('medicamentos', '').strip()
                 
-                except Paciente.DoesNotExist:
-                    messages.error(request, 'Paciente não encontrado ou não pertence ao seu cadastro!')
-                except Exception as e:
-                    messages.error(request, 'Erro ao atualizar os medicamentos')
+                if paciente_id:
+                    try:
+                        paciente = Paciente.objects.get(id=paciente_id, medico_responsavel=medico)
+                        if paciente.medicamentos != medicamentos:
+                            paciente.medicamentos = medicamentos
+                            paciente.save(update_fields=['medicamentos'])
+                            messages.success(request, 'Medicamentos atualizados com sucesso!')
+                        return redirect('application:medico_pacientes')
+                    
+                    except Paciente.DoesNotExist:
+                        messages.error(request, 'Paciente não encontrado ou não pertence ao seu cadastro!')
+                    except Exception as e:
+                        messages.error(request, 'Erro ao atualizar os medicamentos')
+            
+            elif request.POST.get('form_type') == 'observacao':
+                paciente_id = request.POST.get('paciente_id')
+                tipo = request.POST.get('tipo')
+                observacao_texto = request.POST.get('observacao', '').strip()
+                
+                if paciente_id and tipo and observacao_texto:
+                    try:
+                        paciente = Paciente.objects.get(id=paciente_id, medico_responsavel=medico)
+                        ObservacaoSaude.objects.create(
+                            paciente=paciente,
+                            autor=medico,
+                            tipo=tipo,
+                            observacao=observacao_texto,
+                            data_criacao=timezone.now()
+                        )
+                        messages.success(request, 'Observação adicionada com sucesso!')
+                        return redirect('application:medico_pacientes')
+                    
+                    except Paciente.DoesNotExist:
+                        messages.error(request, 'Paciente não encontrado ou não pertence ao seu cadastro!')
+                    except Exception as e:
+                        messages.error(request, 'Erro ao adicionar observação')
         
         return render(request, 'application/painel_medico.html', {
             'pacientes': pacientes,
-            'medico': medico
+            'medico': medico,
+            'tipos_observacao': ObservacaoSaude.TIPO_CHOICES
         })
     
     except Medico.DoesNotExist:
         raise PermissionDenied("Acesso restrito a médicos cadastrados")
+
+@login_required
+def adicionar_observacao(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+    
+    if hasattr(request.user, 'medico'):
+        if paciente.medico_responsavel != request.user.medico:
+            raise PermissionDenied("Você não tem permissão para adicionar observações a este paciente")
+    elif not hasattr(request.user, 'enfermeiro'):
+        raise PermissionDenied("Acesso restrito a profissionais de saúde")
+    
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        observacao_texto = request.POST.get('observacao', '').strip()
+        
+        if tipo and observacao_texto:
+            autor = None
+            if hasattr(request.user, 'medico'):
+                autor = request.user.medico
+            
+            ObservacaoSaude.objects.create(
+                paciente=paciente,
+                autor=autor,
+                tipo=tipo,
+                observacao=observacao_texto,
+                data_criacao=timezone.now()
+            )
+            messages.success(request, 'Observação adicionada com sucesso!')
+            return redirect('application:visualizar_paciente', paciente_id=paciente.id)
+        else:
+            messages.error(request, 'Por favor, preencha todos os campos corretamente.')
+    
+    return render(request, 'application/adicionar_observacao.html', {
+        'paciente': paciente,
+        'tipos_observacao': ObservacaoSaude.TIPO_CHOICES
+    })
+
+@login_required
+def listar_observacoes(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+    
+    if hasattr(request.user, 'medico'):
+        if paciente.medico_responsavel != request.user.medico:
+            raise PermissionDenied("Você não tem permissão para ver observações deste paciente")
+    elif not hasattr(request.user, 'enfermeiro'):
+        raise PermissionDenied("Acesso restrito a profissionais de saúde")
+    
+    observacoes = ObservacaoSaude.objects.filter(paciente=paciente).order_by('-data_criacao')
+    
+    return render(request, 'application/listar_observacoes.html', {
+        'paciente': paciente,
+        'observacoes': observacoes
+    })
+
+@login_required
+def visualizar_paciente(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+    
+    if hasattr(request.user, 'medico'):
+        if paciente.medico_responsavel != request.user.medico:
+            raise PermissionDenied("Você não tem permissão para ver este paciente")
+    elif not hasattr(request.user, 'enfermeiro'):
+        raise PermissionDenied("Acesso restrito a profissionais de saúde")
+    
+    observacoes = paciente.observacoes.all().order_by('-data_criacao')[:5]
+    
+    return render(request, 'application/visualizar_paciente.html', {
+        'paciente': paciente,
+        'observacoes': observacoes,
+        'tipos_observacao': ObservacaoSaude.TIPO_CHOICES
+    })
