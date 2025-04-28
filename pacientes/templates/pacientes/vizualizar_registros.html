@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Registros de Pacientes por Andar</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Andar</th>
+        <th>Quarto</th>
+        <th>Registrado por</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for registro in registros %}
+      <tr>
+        <td>{{ registro.paciente.nome }}</td>
+        <td>{{ registro.get_andar_display }}</td>
+        <td>{{ registro.numero_quarto }}</td>
+        <td>{{ registro.registrado_por }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

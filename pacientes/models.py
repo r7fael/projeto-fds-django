@@ -43,3 +43,27 @@ class ObservacaoSaude(models.Model):
     
     def __str__(self):
         return f"Observação para {self.paciente.nome_completo} em {self.data_criacao}"
+
+from django.db import models
+from django.contrib.auth.models import User    
+
+class Paciente(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+
+class RegistroPacienteAndar(models.Model):
+    ANDAR_CHOICES = [
+        ('1', '1º Andar'),
+        ('2', '2º Andar'),
+        ('3', '3º Andar'),
+    ]
+
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    andar = models.CharField(max_length=1, choices=ANDAR_CHOICES)
+    numero_quarto = models.CharField(max_length=10)
+    registrado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.paciente.nome} - Andar {self.andar}, Quarto {self.numero_quarto}"
