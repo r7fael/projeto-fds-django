@@ -57,9 +57,6 @@ As histórias e seus respectivos cenários podem ser acessados e revisados no se
 **Painel**
 ![VitalHub_Painel](https://github.com/user-attachments/assets/4b99fdf6-fe06-4c2f-9b78-f92be4b820ca)
 
-**Bug Tracker**
-![Bug Tracker](https://i.imgur.com/NwtGd71.jpeg)
-
 **Sketches do Protótipo Lo-Fi**
 <br>
 Disponível através do [Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1&p=f).
@@ -109,3 +106,6 @@ Plataforma de comunicação:
 
 **Screencast Figma**
 [Screencast](https://youtu.be/JMZyG5xlCZs?si=rkRnmbLdA_4Bx40O)
+
+**Bug Tracker**
+![Bug Tracker](https://i.imgur.com/NwtGd71.jpeg)
