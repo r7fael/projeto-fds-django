@@ -94,9 +94,9 @@ Plataforma de comunicação:
 
 [Link do deployment](https://vitalhub.azurewebsites.net/)
 
-
-<summary>Entrega 3</summary>
-<br>
+</details>
+<details>
+<summary><h2>Entrega 3</h2></summary>
 
 **Programação em par atualizada**
 [Relatório PP](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
