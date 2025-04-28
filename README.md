@@ -96,7 +96,7 @@ Plataforma de comunicação:
 
 </details>
 <details>
-<summary><h2>Entrega 3</h2></summary>
+<summary>Entrega 3</summary>
 
 **Programação em par atualizada**
 [Relatório PP](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
