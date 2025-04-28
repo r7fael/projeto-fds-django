@@ -107,5 +107,11 @@ Plataforma de comunicação:
 **Screencast Figma**
 [Screencast](https://youtu.be/JMZyG5xlCZs?si=rkRnmbLdA_4Bx40O)
 
+**Backlog**
+![VitalHub_Backlog](https://i.imgur.com/BwNFefd.png)
+
+**Painel**
+![VitalHub_Painel](https://i.imgur.com/Zh0veza.png)
+
 **Bug Tracker**
 ![Bug Tracker](https://i.imgur.com/NwtGd71.jpeg)
