@@ -36,6 +36,8 @@ O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicaç�
 
 [Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
 
+[Deployment](https://vitalhub.azurewebsites.net/)
+
 
 # Entregas 📃
 
@@ -96,3 +98,12 @@ Plataforma de comunicação:
 <details>
 <summary>Entrega 3</summary>
 <br>
+
+**Programação em par atualizada**
+[Relatório PP](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
+
+**Link Lo-Fi atualizado**
+[Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
+
+**Screencast Figma**
+[Screencast](https://youtu.be/JMZyG5xlCZs?si=rkRnmbLdA_4Bx40O)
