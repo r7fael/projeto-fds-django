@@ -95,7 +95,6 @@ Plataforma de comunicação:
 [Link do deployment](https://vitalhub.azurewebsites.net/)
 
 
-<details>
 <summary>Entrega 3</summary>
 <br>
 
