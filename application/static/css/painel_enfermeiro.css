@@ -103,11 +103,6 @@ body {
     margin-bottom: 10px;
 }
 
-.botoes-acoes {
-    display: flex;
-    gap: 10px;
-}
-
 .botao-dropdown {
     display: inline-flex;
     align-items: center;
@@ -171,7 +166,7 @@ body {
     resize: vertical;
 }
 
-.botao-adicionar {
+.botao-adicionar-observacao {
     background-color: #28a745;
     color: white;
     border: none;
@@ -183,7 +178,7 @@ body {
     gap: 5px;
 }
 
-.botao-adicionar:hover {
+.botao-adicionar-observacao:hover {
     background-color: #218838;
 }
 
@@ -254,7 +249,270 @@ body {
     color: #777;
 }
 
+.container-andares {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.controles-andares {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-resumo {
+    background-color: #e6f2ff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 250px;
+}
+
+.card-resumo h3 {
+    margin-top: 0;
+    color: #004b87;
+    border-bottom: 1px solid #b3d7ff;
+    padding-bottom: 8px;
+}
+
+.card-resumo p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.filtros {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filtros input,
+.filtros select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.lista-andares {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card-andar {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.cabecalho-andar {
+    background-color: #004b87;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-andar h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.status-andar {
+    display: flex;
+    gap: 8px;
+}
+
+.status-andar span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.disponiveis {
+    background-color: #28a745;
+}
+
+.ocupados {
+    background-color: #dc3545;
+}
+
+.taxa {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.quartos-andar {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 15px;
+}
+
+.quarto {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.quarto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.quarto.disponivel {
+    border: 1px solid #28a745;
+}
+
+.quarto.ocupado {
+    border: 1px solid #dc3545;
+}
+
+.quarto .numero {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.quarto .paciente {
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-atribuir, .btn-liberar {
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.btn-atribuir {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-atribuir:hover {
+    background-color: #218838;
+}
+
+.btn-liberar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-liberar:hover {
+    background-color: #c82333;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-conteudo {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.fechar-modal {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.fechar-modal:hover {
+    color: #495057;
+}
+
+.modal-conteudo h3 {
+    margin-top: 0;
+    color: #004b87;
+}
+
+.modal-conteudo .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-conteudo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-conteudo select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.btn-confirmar {
+    background-color: #004b87;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-confirmar:hover {
+    background-color: #003366;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .controles-andares {
+        flex-direction: column;
+    }
+    
+    .card-resumo {
+        width: 100%;
+    }
+    
+    .filtros {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .quartos-andar {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .modal-conteudo {
+        width: 90%;
+    }
 }

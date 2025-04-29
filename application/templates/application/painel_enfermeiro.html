@@ -31,6 +31,9 @@
             <li class="item-menu">
                 <a class="link-menu" href="#" onclick="mostrarConteudo('consultas', this)">Cadastrar Consulta</a>
             </li>
+            <li class="item-menu">
+                <a class="link-menu" href="#" onclick="mostrarConteudo('andares', this)">Controle de Andares</a>
+            </li>
         </ul>
     </aside>
 
@@ -171,125 +174,82 @@
                 <button type="submit">Cadastrar Consulta</button>
             </form>
         </section>
-    </main>
-</div>
-
-<script>
-    function mostrarConteudo(tipo, elemento) {
-        document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
-        if (elemento) elemento.classList.add('ativo');
-        const secoes = ['home', 'pacientes', 'cadastro', 'consultas'];
-        secoes.forEach(sec => {
-            document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
-        });
-        const titulo = document.getElementById('titulo-pagina');
-        if (tipo === 'home') {
-            titulo.textContent = "Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}";
-        } else {
-            titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1).replace('_', ' ');
-        }
-        
-        window.location.hash = tipo;
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const hash = window.location.hash.substring(1);
-        if (hash && ['home', 'pacientes', 'cadastro', 'consultas'].includes(hash)) {
-            const elemento = document.querySelector(`.link-menu[href="#"]`);
-            mostrarConteudo(hash, elemento);
-        }
-
-        document.querySelectorAll(".botao-dropdown").forEach(function(btn) {
-            btn.addEventListener("click", function(e) {
-                e.preventDefault();
-                const targetId = btn.getAttribute("data-dropdown-target");
-                const dropdown = document.getElementById(targetId);
-                if (dropdown) {
-                    dropdown.classList.toggle("mostrar");
-                }
-            });
-        });
-    });
-</script>
-
 
         <section id="andares-content" style="display: none;">
-            <div class="container mt-4">
-                <h2 class="mb-4">Controle de Andares e Quartos</h2>
+            <div class="container-andares">
+                <h2>Controle de Andares e Quartos</h2>
                 
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5>Atribuir Paciente a Quarto</h5>
+                <div class="controles-andares">
+                    <div class="resumo-geral">
+                        <div class="card-resumo">
+                            <h3>Resumo Geral</h3>
+                            <p>Total de Andares: {{ total_andares }}</p>
+                            <p>Total de Quartos: {{ total_quartos }}</p>
+                            <p>Quartos Ocupados: {{ quartos_ocupados }}</p>
+                            <p>Quartos Disponíveis: {{ quartos_disponiveis }}</p>
+                            <p>Taxa de Ocupação: {{ taxa_ocupacao|floatformat:2 }}%</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="andar">Andar:</label>
-                                        <select class="form-control" id="andar" name="andar" required>
-                                            <option value="">Selecione um andar</option>
-                                            {% for andar in andares %}
-                                            <option value="{{ andar.id }}">{{ andar }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="numero">Número do Quarto:</label>
-                                        <input type="number" class="form-control" id="numero" name="numero" min="1" max="10" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="paciente">Paciente:</label>
-                                        <select class="form-control" id="paciente" name="paciente" required>
-                                            <option value="">Selecione um paciente</option>
-                                            {% for paciente in pacientes_sem_quarto %}
-                                            <option value="{{ paciente.id }}">{{ paciente.nome }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-2">Atribuir Quarto</button>
-                        </form>
+                    
+                    <div class="filtros">
+                        <input type="text" id="filtro-andar" placeholder="Filtrar por andar...">
+                        <select id="filtro-status">
+                            <option value="todos">Todos os status</option>
+                            <option value="disponiveis">Disponíveis</option>
+                            <option value="ocupados">Ocupados</option>
+                        </select>
                     </div>
                 </div>
 
-                {% for andar, quartos in quartos_por_andar.items %}
-                <div class="card mb-4">
-                    <div class="card-header bg-info text-white">
-                        <h5>{{ andar }}</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            {% for quarto in quartos %}
-                            <div class="col-md-4 mb-3">
-                                <div class="card {% if quarto.paciente %}border-success{% else %}border-secondary{% endif %}">
-                                    <div class="card-header">
-                                        <strong>Quarto {{ quarto.numero }}</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        {% if quarto.paciente %}
-                                            <p class="text-success">
-                                                <strong>Paciente:</strong> {{ quarto.paciente.nome }}<br>
-                                                <strong>ID:</strong> {{ quarto.paciente.id }}
-                                            </p>
-                                            <a href="{% url 'liberar_quarto' quarto.id %}" class="btn btn-sm btn-warning">Liberar Quarto</a>
-                                        {% else %}
-                                            <p class="text-muted">Vago</p>
-                                        {% endif %}
-                                    </div>
-                                </div>
+                <div class="lista-andares">
+                    {% for andar in andares %}
+                    <div class="card-andar">
+                        <div class="cabecalho-andar">
+                            <h3>{{ andar }}</h3>
+                            <div class="status-andar">
+                                <span class="disponiveis">{{ andar.quartos_disponiveis }} disponíveis</span>
+                                <span class="ocupados">{{ andar.quartos_ocupados }} ocupados</span>
+                                <span class="taxa">{{ andar.taxa_ocupacao|floatformat:1 }}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quartos-andar">
+                            {% for quarto in andar.quartos.all %}
+                            <div class="quarto {% if quarto.paciente %}ocupado{% else %}disponivel{% endif %}">
+                                <span class="numero">Quarto {{ quarto.numero }}</span>
+                                {% if quarto.paciente %}
+                                    <span class="paciente">{{ quarto.paciente.nome_completo|truncatechars:20 }}</span>
+                                    <a href="{% url 'liberar_quarto' quarto.id %}" class="btn-liberar">Liberar</a>
+                                {% else %}
+                                    <button class="btn-atribuir" data-quarto="{{ quarto.id }}">Atribuir</button>
+                                {% endif %}
                             </div>
                             {% endfor %}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+            </div>
+
+            <div id="modal-atribuir" class="modal">
+                <div class="modal-conteudo">
+                    <span class="fechar-modal">&times;</span>
+                    <h3>Atribuir Paciente ao Quarto</h3>
+                    <form method="post" action="{% url 'andares:atribuir_quarto' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="quarto-id" name="quarto_id">
+                        <div class="form-group">
+                            <label for="paciente">Selecione o paciente:</label>
+                            <select name="paciente_id" id="paciente" required>
+                                <option value="">Selecione um paciente</option>
+                                {% for paciente in pacientes_disponiveis %}
+                                    <option value="{{ paciente.id }}">{{ paciente.nome_completo }} ({{ paciente.cpf }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-confirmar">Confirmar Atribuição</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
@@ -327,6 +287,53 @@
                 const dropdown = document.getElementById(targetId);
                 if (dropdown) {
                     dropdown.classList.toggle("mostrar");
+                }
+            });
+        });
+
+        const modal = document.getElementById('modal-atribuir');
+        const btnAtribuir = document.querySelectorAll('.btn-atribuir');
+        const spanFechar = document.getElementsByClassName('fechar-modal')[0];
+        
+        btnAtribuir.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const quartoId = this.getAttribute('data-quarto');
+                document.getElementById('quarto-id').value = quartoId;
+                modal.style.display = 'block';
+            });
+        });
+        
+        spanFechar.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('filtro-andar').addEventListener('input', function() {
+            const filtro = this.value.toLowerCase();
+            document.querySelectorAll('.card-andar').forEach(function(andar) {
+                const textoAndar = andar.querySelector('h3').textContent.toLowerCase();
+                andar.style.display = textoAndar.includes(filtro) ? 'block' : 'none';
+            });
+        });
+        
+        document.getElementById('filtro-status').addEventListener('change', function() {
+            const status = this.value;
+            document.querySelectorAll('.card-andar').forEach(function(andar) {
+                if (status === 'todos') {
+                    andar.style.display = 'block';
+                } else if (status === 'disponiveis') {
+                    const disponiveis = andar.querySelector('.disponiveis').textContent;
+                    const numDisponiveis = parseInt(disponiveis);
+                    andar.style.display = numDisponiveis > 0 ? 'block' : 'none';
+                } else if (status === 'ocupados') {
+                    const ocupados = andar.querySelector('.ocupados').textContent;
+                    const numOcupados = parseInt(ocupados);
+                    andar.style.display = numOcupados > 0 ? 'block' : 'none';
                 }
             });
         });
