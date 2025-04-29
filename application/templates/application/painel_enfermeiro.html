@@ -42,12 +42,10 @@
             <h1 class="titulo-pagina" id="titulo-pagina">Bem-vindo(a), {{ enfermeiro.usuario.nome_completo }}</h1>
         </header>
 
-        <!-- Seção Home -->
         <section id="home-content">
             <p>Escolha uma opção no menu lateral para começar.</p>
         </section>
 
-        <!-- Seção Pacientes -->
         <section id="pacientes-content" style="display: none;">
             <div class="cartao">
                 <div class="corpo-cartao">
@@ -55,7 +53,7 @@
                     <div class="grade-pacientes">
                         {% for paciente in pacientes %}
                         <div class="cartao-paciente">
-                            <!-- Conteúdo dos pacientes... (mantenha igual ao original) -->
+                           
                         </div>
                         {% endfor %}
                     </div>
@@ -66,19 +64,16 @@
             </div>
         </section>
 
-        <!-- Seção Cadastro -->
         <section id="cadastro-content" style="display: none;">
             {% include 'application/cadastrar_paciente.html' %}
         </section>
 
-        <!-- Seção Consultas -->
         <section id="consultas-content" style="display: none;">
             <form method="post" action="{% url 'consultas:cadastrar_consulta' %}">
-                <!-- Formulário de consultas... (mantenha igual ao original) -->
+
             </form>
         </section>
 
-        <!-- Seção Andares e Quartos (nova seção) -->
         <section id="andares-content" style="display: none;">
             <div class="container mt-4">
                 <h2 class="mb-4">Controle de Andares e Quartos</h2>
