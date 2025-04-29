@@ -8,6 +8,7 @@ from datetime import datetime
 from django.utils import timezone
 from notificacoes.utils import gerar_notificacoes_para_medico
 from django.contrib import messages
+from andares.models import Andar, Quarto
 
 def home(request):
     return render(request, 'application/home.html')
@@ -64,6 +65,13 @@ def painel_enfermeiro(request):
 
     pacientes = Paciente.objects.select_related('medico_responsavel__usuario').all()
     medicos = Medico.objects.select_related('usuario').all()
+    andares = Andar.objects.all().prefetch_related('quartos')
+    total_andares = Andar.objects.count()
+    total_quartos = Quarto.objects.count()
+    quartos_ocupados = Quarto.objects.filter(paciente__isnull=False).count()
+    quartos_disponiveis = total_quartos - quartos_ocupados
+    taxa_ocupacao = (quartos_ocupados / total_quartos * 100) if total_quartos > 0 else 0
+    pacientes_disponiveis = Paciente.objects.filter(quarto__isnull=True)
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
@@ -157,6 +165,13 @@ def painel_enfermeiro(request):
         'pacientes': pacientes,
         'medicos': medicos,
         'tipos_observacao': ObservacaoSaude.TIPO_CHOICES,
+        'andares': andares,
+        'total_andares': total_andares,
+        'total_quartos': total_quartos,
+        'quartos_ocupados': quartos_ocupados,
+        'quartos_disponiveis': quartos_disponiveis,
+        'taxa_ocupacao': taxa_ocupacao,
+        'pacientes_disponiveis': pacientes_disponiveis,
     }
 
     return render(request, 'application/painel_enfermeiro.html', context)
