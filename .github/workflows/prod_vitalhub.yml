@@ -82,9 +82,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: release.zip
+          app-name: 'vitalhub'
           slot-name: 'Production'
-          startup-command: |
-            gunicorn --bind=0.0.0.0 --timeout 600 your_project.wsgi
           
