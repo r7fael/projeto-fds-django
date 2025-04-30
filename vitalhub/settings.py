@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'pacientes',
     'medicamentos',
     'notificacoes',
-    'andares'
     "whitenoise.runserver_nostatic",
 ]
 
