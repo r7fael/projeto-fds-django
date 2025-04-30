@@ -222,7 +222,7 @@
                                 <span class="numero">Quarto {{ quarto.numero }}</span>
                                 {% if quarto.paciente %}
                                     <span class="paciente">{{ quarto.paciente.nome_completo|truncatechars:20 }}</span>
-                                    <a href="{% url 'liberar_quarto' quarto.id %}" class="btn-liberar">Liberar</a>
+                                    <a href="{% url 'andares:liberar_quarto' quarto.id %}" class="btn-liberar">Liberar</a>
                                 {% else %}
                                     <button class="btn-atribuir" data-quarto="{{ quarto.id }}">Atribuir</button>
                                 {% endif %}
