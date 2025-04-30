@@ -1,6 +1,4 @@
 from pathlib import Path
-import os
-from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,45 +7,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-load_dotenv(BASE_DIR / '.env')
-TARGET_ENV = os.getenv('TARGET_ENV')
-NOT_PROD = not TARGET_ENV.lower().startswith('prod')
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-x&h@^i-0_gd!&-ww@$ux!=w0qmudn0aea7_9s)_zq*+i*ny20p'
 
-if NOT_PROD:
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '7!-=ne_wjm4p2g27na0&@pi_5-)+6y(jk24ir+nyu6+en6l9#*'
-    ALLOWED_HOSTS = []
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(' ')
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-    SECURE_SSL_REDIRECT = \
-        os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
-
-    if SECURE_SSL_REDIRECT:
-        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DBNAME'),
-            'HOST': os.environ.get('DBHOST'),
-            'USER': os.environ.get('DBUSER'),
-            'PASSWORD': os.environ.get('DBPASS'),
-            'OPTIONS': {'sslmode': 'require'},
-        }
-    }
-    
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -66,7 +32,6 @@ INSTALLED_APPS = [
     'medicamentos',
     'notificacoes',
     'andares'
-    "whitenoise.runserver_nostatic",
 ]
 
 AUTH_USER_MODEL = 'users.Usuario'
@@ -77,7 +42,6 @@ LOGOUT_REDIRECT_URL = '/users/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -104,6 +68,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'vitalhub.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -141,10 +116,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
