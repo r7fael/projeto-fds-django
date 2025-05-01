@@ -1,6 +1,10 @@
 from django.db import models
 from datetime import date
 from users.models import Medico, Enfermeiro
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    registro_profissional = models.CharField(max_length=20, blank=True)
 
 class Paciente(models.Model):
     nome_completo = models.CharField(max_length=255)
