@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 load_dotenv(BASE_DIR / '.env')
-TARGET_ENV = os.getenv('TARGET_ENV')
+TARGET_ENV = os.environ.get('TARGET_ENV', 'dev')
 NOT_PROD = not TARGET_ENV.lower().startswith('prod')
 
 if NOT_PROD:
