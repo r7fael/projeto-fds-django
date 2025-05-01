@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'medicamentos',
     'notificacoes',
     'andares',
-    "whitenoise.runserver_nostatic",
+    'whitenoise.runserver_nostatic',
 ]
 
 AUTH_USER_MODEL = 'users.Usuario'

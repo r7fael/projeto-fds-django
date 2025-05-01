@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
 <form method="post" action="{% url 'pacientes:cadastrar' %}">
     {% csrf_token %}
     

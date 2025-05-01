@@ -1,0 +1,62 @@
+{% block content %}
+<div class="container mt-4">
+    <h2>Gerenciar Andares e Quartos</h2>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Criar Novo Andar</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'andares:criar_andar' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="numero_andar">Número do Andar:</label>
+                    <input type="number" class="form-control" id="numero_andar" name="numero_andar" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="descricao_andar">Descrição (opcional):</label>
+                    <input type="text" class="form-control" id="descricao_andar" name="descricao_andar">
+                </div>
+                <button type="submit" class="btn btn-primary">Criar Andar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Adicionar Quartos a um Andar</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'andares:criar_quartos' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="andar">Selecione o Andar:</label>
+                    <select class="form-control" id="andar" name="andar" required>
+                        <option value="">-- Selecione --</option>
+                        {% for andar in andares %}
+                            <option value="{{ andar.id }}">Andar {{ andar.numero }} - {{ andar.descricao }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantidade_quartos">Quantidade de Quartos:</label>
+                    <input type="number" class="form-control" id="quantidade_quartos" name="quantidade_quartos" min="1" value="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="inicio_numero">Número Inicial:</label>
+                    <input type="number" class="form-control" id="inicio_numero" name="inicio_numero" min="1" value="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Quartos</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <form method="post" action="{% url 'andares:criar_automaticamente' %}">
+            {% csrf_token %}
+            <p>Ou crie automaticamente 21 andares com 28 quartos cada (como no seu código original):</p>
+            <button type="submit" class="btn btn-secondary">Criar Estrutura Automática</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
