@@ -115,3 +115,9 @@ Plataforma de comunicação:
 
 **Bug Tracker**
 ![Bug Tracker](https://i.imgur.com/NwtGd71.jpeg)
+
+**Screen cast novas historias no deployment**
+[Screencast](https://youtu.be/pRSiV_3qMgU?si=TM1OoHKg_VLxU0Wz)
+
+**Screencast Testes automatizados**
+[Screencast_1](https://youtu.be/5beBPdutMhM)
