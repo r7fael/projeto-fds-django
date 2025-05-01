@@ -146,51 +146,19 @@ body {
     font-weight: bold;
 }
 
-.cabecalho-cartao-paciente {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.botoes-acoes {
-    display: flex;
-    gap: 10px;
-}
-
-.botao-observacao {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.botao-observacao:hover {
-    background-color: #3e8e41;
-}
-
 .botao-dropdown {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #3498db;
+    background-color: #007bff;
     color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
     border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
+    margin-top: 10px;
+    transition: background-color 0.2s;
 }
 
 .botao-dropdown:hover {
-    background-color: #2980b9;
+    background-color: #0056b3;
 }
 
 .dropdown-info {
@@ -236,67 +204,6 @@ body {
     font-size: 1.1em;
     margin-bottom: 10px;
     color: #003366;
-}
-
-.secao-observacoes {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
-.titulo-observacoes {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    color: #2c3e50;
-}
-
-.observacao-item {
-    background-color: #f8f9fa;
-    border-left: 3px solid #4CAF50;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 0 4px 4px 0;
-}
-
-.observacao-data {
-    font-size: 0.8rem;
-    color: #7f8c8d;
-    margin-bottom: 5px;
-}
-
-.observacao-tipo {
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.observacao-texto {
-    margin-bottom: 5px;
-    white-space: pre-line;
-}
-
-.observacao-autor {
-    font-size: 0.8rem;
-    color: #7f8c8d;
-    text-align: right;
-    font-style: italic;
-}
-
-.sem-observacoes {
-    color: #95a5a6;
-    font-style: italic;
-}
-
-.ver-mais-observacoes {
-    display: inline-block;
-    margin-top: 10px;
-    color: #3498db;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.ver-mais-observacoes:hover {
-    text-decoration: underline;
 }
 
 @keyframes fadeIn {

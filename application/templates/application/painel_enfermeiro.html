@@ -2,9 +2,8 @@
 {% load static %}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/painel_enfermeiro.css' %}">
 <link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
-<link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
+<link rel="stylesheet" href="{% static 'css/cadastrar_paciente.css' %}">
 
 {% if messages %}
 <div class="mensagens">
@@ -23,16 +22,10 @@
                 <a class="link-menu ativo" href="#" onclick="mostrarConteudo('home', this)">Home</a>
             </li>
             <li class="item-menu">
-                <a class="link-menu" href="#" onclick="mostrarConteudo('pacientes', this)">Pacientes</a>
-            </li>
-            <li class="item-menu">
                 <a class="link-menu" href="#" onclick="mostrarConteudo('cadastro', this)">Cadastrar Paciente</a>
             </li>
             <li class="item-menu">
                 <a class="link-menu" href="#" onclick="mostrarConteudo('consultas', this)">Cadastrar Consulta</a>
-            </li>
-            <li class="item-menu">
-                <a class="link-menu" href="#" onclick="mostrarConteudo('andares', this)">Controle de Andares</a>
             </li>
         </ul>
     </aside>
@@ -44,94 +37,6 @@
 
         <section id="home-content">
             <p>Escolha uma opção no menu lateral para começar.</p>
-        </section>
-
-        <section id="pacientes-content" style="display: none;">
-            <div class="cartao">
-                <div class="corpo-cartao">
-                    {% if pacientes %}
-                    <div class="grade-pacientes">
-                        {% for paciente in pacientes %}
-                        <div class="cartao-paciente">
-                            <div class="cabecalho-cartao-paciente">
-                                <h2 class="nome-paciente">{{ paciente.nome_completo }}</h2>
-                                <button class="botao-dropdown" data-dropdown-target="dropdown-paciente-{{ paciente.id }}">
-                                    <i class="fas fa-chevron-down"></i> Detalhes
-                                </button>
-                            </div>
-                            <div class="dropdown-info" id="dropdown-paciente-{{ paciente.id }}">
-                                <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
-                                <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
-                                <p><strong>Médico Responsável:</strong> {{ paciente.medico_responsavel.usuario.nome_completo }}</p>
-                                
-                                {% if paciente.medicamentos %}
-                                <div class="secao-medicamentos">
-                                    <h3 class="titulo-medicamentos">Medicamentos Prescritos</h3>
-                                    <div class="lista-medicamentos">
-                                        {{ paciente.medicamentos|linebreaks }}
-                                    </div>
-                                </div>
-                                {% else %}
-                                <div class="secao-medicamentos">
-                                    <p class="sem-medicamentos">Nenhum medicamento prescrito</p>
-                                </div>
-                                {% endif %}
-                                <div class="secao-observacoes">
-                                    <h3 class="titulo-observacoes">Adicionar Observação</h3>
-                                    <form method="post" class="form-observacao">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="form_type" value="observacao">
-                                        <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
-                                        
-                                        <div class="form-group">
-                                            <label for="tipo-{{ paciente.id }}">Tipo:</label>
-                                            <select name="tipo" id="tipo-{{ paciente.id }}" required>
-                                                <option value="" disabled selected>Selecione o tipo</option>
-                                                {% for tipo_val, tipo_nome in tipos_observacao %}
-                                                    <option value="{{ tipo_val }}">{{ tipo_nome }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label for="observacao-{{ paciente.id }}">Observação:</label>
-                                            <textarea name="observacao" id="observacao-{{ paciente.id }}" rows="3" required></textarea>
-                                        </div>
-                                        
-                                        <button type="submit" class="botao-adicionar-observacao">
-                                            <i class="fas fa-save"></i> Salvar Observação
-                                        </button>
-                                    </form>
-                                    
-                                    <h3 class="titulo-observacoes">Últimas Observações</h3>
-                                    {% for obs in paciente.observacoes.all|slice:":3" %}
-                                    <div class="observacao-item">
-                                        <p class="observacao-data">{{ obs.data_criacao|date:"d/m/Y H:i" }}</p>
-                                        <p class="observacao-tipo">{{ obs.get_tipo_display }}</p>
-                                        <p class="observacao-texto">{{ obs.observacao }}</p>
-                                        {% if obs.autor %}
-                                        <p class="observacao-autor">por {{ obs.autor.usuario.nome_completo }}</p>
-                                        {% endif %}
-                                    </div>
-                                    {% empty %}
-                                    <p class="sem-observacoes">Nenhuma observação registrada</p>
-                                    {% endfor %}
-                                    
-                                    {% if paciente.observacoes.count > 3 %}
-                                    <a href="#" class="ver-mais-observacoes">
-                                        Ver todas as observações ({{ paciente.observacoes.count }})
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <p class="sem-resultados">Nenhum paciente cadastrado</p>
-                    {% endif %}
-                </div>
-            </div>
         </section>
 
         <section id="cadastro-content" style="display: none;">
@@ -174,7 +79,6 @@
                 <button type="submit">Cadastrar Consulta</button>
             </form>
         </section>
-
         <section id="andares-content" style="display: none;">
             <div class="container-andares">
                 <h2>Controle de Andares e Quartos</h2>
@@ -262,7 +166,7 @@
     function mostrarConteudo(tipo, elemento) {
         document.querySelectorAll('.link-menu').forEach(link => link.classList.remove('ativo'));
         if (elemento) elemento.classList.add('ativo');
-        const secoes = ['home', 'pacientes', 'cadastro', 'consultas', 'andares'];
+        const secoes = ['home', 'cadastro', 'consultas'];
         secoes.forEach(sec => {
             document.getElementById(`${sec}-content`).style.display = sec === tipo ? 'block' : 'none';
         });
@@ -272,74 +176,7 @@
         } else {
             titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1).replace('_', ' ');
         }
-        
-        window.location.hash = tipo;
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const hash = window.location.hash.substring(1);
-        if (hash && ['home', 'pacientes', 'cadastro', 'consultas', 'andares'].includes(hash)) {
-            const elemento = document.querySelector(`.link-menu[href="#"]`);
-            mostrarConteudo(hash, elemento);
-        }
-
-        document.querySelectorAll(".botao-dropdown").forEach(function(btn) {
-            btn.addEventListener("click", function(e) {
-                e.preventDefault();
-                const targetId = btn.getAttribute("data-dropdown-target");
-                const dropdown = document.getElementById(targetId);
-                if (dropdown) {
-                    dropdown.classList.toggle("mostrar");
-                }
-            });
-        });
-
-        const modal = document.getElementById('modal-atribuir');
-        const btnAtribuir = document.querySelectorAll('.btn-atribuir');
-        const spanFechar = document.getElementsByClassName('fechar-modal')[0];
-        
-        btnAtribuir.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const quartoId = this.getAttribute('data-quarto');
-                document.getElementById('quarto-id').value = quartoId;
-                modal.style.display = 'block';
-            });
-        });
-        
-        spanFechar.onclick = function() {
-            modal.style.display = 'none';
-        }
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        document.getElementById('filtro-andar').addEventListener('input', function() {
-            const filtro = this.value.toLowerCase();
-            document.querySelectorAll('.card-andar').forEach(function(andar) {
-                const textoAndar = andar.querySelector('h3').textContent.toLowerCase();
-                andar.style.display = textoAndar.includes(filtro) ? 'block' : 'none';
-            });
-        });
-        
-        document.getElementById('filtro-status').addEventListener('change', function() {
-            const status = this.value;
-            document.querySelectorAll('.card-andar').forEach(function(andar) {
-                if (status === 'todos') {
-                    andar.style.display = 'block';
-                } else if (status === 'disponiveis') {
-                    const disponiveis = andar.querySelector('.disponiveis').textContent;
-                    const numDisponiveis = parseInt(disponiveis);
-                    andar.style.display = numDisponiveis > 0 ? 'block' : 'none';
-                } else if (status === 'ocupados') {
-                    const ocupados = andar.querySelector('.ocupados').textContent;
-                    const numOcupados = parseInt(ocupados);
-                    andar.style.display = numOcupados > 0 ? 'block' : 'none';
-                }
-            });
-        });
-    });
 </script>
+
 {% endblock %}

@@ -11,16 +11,6 @@
                     <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
                     <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
                     <p><strong>Médico Responsável:</strong> {{ paciente.medico_responsavel.usuario.nome_completo }}</p>
-                    <div class="secao-medicamentos">
-                        <h3 class="titulo-medicamentos">Medicamentos Prescritos</h3>
-                        <form method="post" action="{% url 'application:medico_pacientes' %}" class="form-medicamentos">
-                            {% csrf_token %}
-                            <input type="hidden" name="form_type" value="medicamentos">
-                            <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
-                            <textarea name="medicamentos" class="campo-medicamentos">{{ paciente.medicamentos|default:'' }}</textarea>
-                            <button type="submit" class="botao-salvar">Salvar</button>
-                        </form>
-                    </div>
                 </div>
             </div>
             {% endfor %}
