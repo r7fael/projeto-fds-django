@@ -121,3 +121,8 @@ Plataforma de comunicação:
 
 **Screencast Testes automatizados**
 [Screencast_1](https://youtu.be/5beBPdutMhM)
+
+**Screencast Teste Automatizado Completo**
+[Screencast_1](https://youtu.be/MMiPoCpb6pc)
+
+
