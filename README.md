@@ -119,10 +119,7 @@ Plataforma de comunicação:
 **Screen cast novas historias no deployment**
 [Screencast](https://youtu.be/pRSiV_3qMgU?si=TM1OoHKg_VLxU0Wz)
 
-**Screencast Testes automatizados**
-[Screencast_1](https://youtu.be/5beBPdutMhM)
-
-**Screencast Teste Automatizado Completo**
+**Screencast Testes Automatizados**
 [Screencast_1](https://youtu.be/MMiPoCpb6pc)
 
 
