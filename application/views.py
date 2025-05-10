@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from users.models import Medico, Enfermeiro
+from users.models import Medico, Enfermeiro, Farmaceutico
 from notificacoes.models import Notificacao
 from consultas.models import Consulta
 from pacientes.models import Paciente, ObservacaoSaude
@@ -175,3 +175,17 @@ def painel_enfermeiro(request):
     }
 
     return render(request, 'application/painel_enfermeiro.html', context)
+
+@login_required
+def painel_farmaceutico(request):
+    try:
+        farmaceutico = Farmaceutico.objects.get(usuario=request.user) 
+        
+        context = {
+            'farmaceutico': farmaceutico,
+        }
+
+        return render(request, 'application/painel_farmaceutico.html', context)
+
+    except Farmaceutico.DoesNotExist:
+        return render(request, 'application/nao_autorizado.html')

@@ -1,0 +1,117 @@
+{% extends 'application/base.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/painel_farmaceutico.css' %}">
+<link rel="stylesheet" href="{% static 'css/painel_medico.css' %}">
+<link rel="stylesheet" href="{% static 'css/medico_pacientes.css' %}">
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Farmacêutico</title>
+    <link rel="stylesheet" href="{% static 'css/painel_farmaceutico.css' %}">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Farmácia</h2>
+            </div>
+            <ul class="menu">
+                <li class="active" data-section="home">
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li data-section="medicamentos">
+                    <a href="#"><i class="fas fa-pills"></i> Medicamentos</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="top-nav">
+                <div class="search">
+                    <input type="text" placeholder="Pesquisar...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-profile">
+                    <span>Farmacêutico: {{ user.username }}</span>
+                    <img src="{% static 'img/farmaceutico-icon.png' %}" alt="Profile">
+                </div>
+            </div>
+
+            <div class="content-sections">
+                <section id="home-section" class="section active">
+                    <h2>Bem-vindo ao Painel Farmacêutico</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <h3>Estoque Crítico</h3>
+                            <p>5 medicamentos</p>
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="card">
+                            <h3>Pedidos Hoje</h3>
+                            <p>12 pedidos</p>
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="card">
+                            <h3>Vencimentos</h3>
+                            <p>3 medicamentos</p>
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="medicamentos-section" class="section">
+                    <div class="section-header">
+                        <h2>Gestão de Medicamentos</h2>
+                        <button class="btn-add"><i class="fas fa-plus"></i> Adicionar Medicamento</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Princípio Ativo</th>
+                                    <th>Quantidade</th>
+                                    <th>Validade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>Paracetamol 500mg</td>
+                                    <td>Paracetamol</td>
+                                    <td>120</td>
+                                    <td>15/12/2024</td>
+                                    <td>
+                                        <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Ibuprofeno 400mg</td>
+                                    <td>Ibuprofeno</td>
+                                    <td>85</td>
+                                    <td>20/10/2024</td>
+                                    <td>
+                                        <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock %}
