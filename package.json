@@ -1,0 +1,23 @@
+{
+  "name": "projeto-fds-django",
+  "version": "1.0.0",
+  "description": "O que é o VitalHub? É a plataforma digital que auxilia a gestão e comunicação dentro do ambiente hospitalar. Seu principal objetivo é facilitar a troca de informações essenciais entre todos os usuários do sistema, incluindo pacientes, médicos, enfermeiros e outros profissionais de saúde.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r7fael/projeto-fds-django.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r7fael/projeto-fds-django/issues"
+  },
+  "homepage": "https://github.com/r7fael/projeto-fds-django#readme",
+  "devDependencies": {
+    "cypress": "^14.4.0"
+  }
+}
