@@ -150,7 +150,7 @@ def painel_enfermeiro(request):
                     paciente = Paciente.objects.get(id=paciente_id)
                     ObservacaoSaude.objects.create(
                         paciente=paciente,
-                        autor=enfermeiro,
+                        autor_enfermeiro=enfermeiro,
                         tipo=tipo,
                         observacao=observacao_texto,
                         data_criacao=timezone.now()

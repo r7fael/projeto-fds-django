@@ -26,7 +26,10 @@ class Paciente(models.Model):
 
 class ObservacaoSaude(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='observacoes')
-    autor = models.ForeignKey(Enfermeiro, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    autor_enfermeiro = models.ForeignKey(Enfermeiro, on_delete=models.SET_NULL, null=True, blank=True, related_name='observacoes_feitas')
+    autor_medico = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True, blank=True, related_name='observacoes_feitas')
+    
     data_criacao = models.DateTimeField(auto_now_add=True)
     observacao = models.TextField()
 
@@ -47,3 +50,10 @@ class ObservacaoSaude(models.Model):
     
     def __str__(self):
         return f"Observação para {self.paciente.nome_completo} em {self.data_criacao}"
+
+    def get_autor_display(self):
+        if self.autor_medico:
+            return f"Dr(a). {self.autor_medico.usuario.nome_completo} (Médico)"
+        elif self.autor_enfermeiro:
+            return f"Enf. {self.autor_enfermeiro.usuario.nome_completo} (Enfermeiro)"
+        return "Profissional de Saúde"

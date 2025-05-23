@@ -22,8 +22,9 @@
             </div>
             
             <div class="menu">
-                <a href="{% url 'users:login' %}" class="btn">Login</a>
-                <a href="{% url 'users:cadastrar' %}" class="btn">Cadastro</a>
+                <a href="{% url 'users:login' %}" class="btn">Login Profissionais</a>
+                <a href="{% url 'users:cadastrar' %}" class="btn">Cadastro Profissionais</a>
+                <a href="{% url 'pacientes:consultar_prontuario_paciente' %}" class="btn btn-paciente">Sou Paciente (Consultar Prontuário)</a>
             </div>
         </main>
     </div>
