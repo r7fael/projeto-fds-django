@@ -9,6 +9,7 @@ from django.utils import timezone
 from notificacoes.utils import gerar_notificacoes_para_medico
 from django.contrib import messages
 from andares.models import Andar, Quarto
+from medicamentos.models import Medicamento
 
 def home(request):
     return render(request, 'application/home.html')
@@ -179,10 +180,28 @@ def painel_enfermeiro(request):
 @login_required
 def painel_farmaceutico(request):
     try:
-        farmaceutico = Farmaceutico.objects.get(usuario=request.user) 
+        farmaceutico = Farmaceutico.objects.get(usuario=request.user)
+        
+        if request.method == 'POST':
+            nome = request.POST.get('nome')
+            principio_ativo = request.POST.get('principio_ativo')
+            quantidade = request.POST.get('quantidade')
+            
+            if nome and quantidade:
+                Medicamento.objects.create(
+                    nome=nome,
+                    principio_ativo=principio_ativo,
+                    quantidade=quantidade,
+                )
+                return redirect('painel_farmaceutico')
+        
+        medicamentos = Medicamento.objects.all()
         
         context = {
             'farmaceutico': farmaceutico,
+            'medicamentos': medicamentos,
+            'total_medicamentos': medicamentos.count(),
+            'estoque_critico': Medicamento.objects.filter(quantidade__lte=5).count(),
         }
 
         return render(request, 'application/painel_farmaceutico.html', context)
