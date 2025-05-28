@@ -122,4 +122,37 @@ Plataforma de comunicação:
 **Screencast Testes Automatizados**
 [Screencast_1](https://youtu.be/MMiPoCpb6pc)
 
+</details>
+<details>
+<summary>Entrega 4</summary>
 
+**Programação em par atualizada**
+[Relatório PP](https://docs.google.com/document/d/16q4cl490-iFpH92nKSfsmy6rHDmawF0KhlcuTn_wYzs/edit?usp=sharing)
+
+**Link Lo-Fi atualizado**
+[Protótipo LoFi Figma](https://www.figma.com/design/ygGW6Qv3CceK2DXEr2MQZ7/Untitled?node-id=0-1)
+
+**Screencast Figma**
+[Screencast](https://youtu.be/eHUqnvpb4C8)
+
+**Nova sprint no jira**
+![VitalHub_jira]()
+
+**Bug Tracker**
+![Bug Tracker]()
+
+**Deployment Atualizado**
+[Screencast]()
+
+**Screen cast novas historias no deployment**
+[Screencast]()
+
+**Screencast Testes Automatizados Atualizados**
+[Screencast_testes]()
+
+**CI/CD com build e deployment atualizado**
+[CI/CD]()
+[Screencast_CI/CD] ()
+
+**CONTRIBUTING.md**
+![link]()
