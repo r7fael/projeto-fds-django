@@ -10,10 +10,9 @@
 <body>
     <div class="form-container">
         <div class="vitalhub-header">
-            <h1>VitalHub</h1>
         </div>
         <h2>Consultar Meu Prontuário</h2>
-        <p>Insira seu CPF e data de nascimento para acessar um resumo do seu prontuário.</p>
+        <p>Insira seu CPF e data de nascimento para acessar seu prontuário.</p>
 
         {% if messages %}
             <ul class="messages">
@@ -35,7 +34,7 @@
             </div>
             <button type="submit" class="btn-submit">Consultar</button>
         </form>
-        <a href="{% url 'home' %}" class="home-link">Voltar para a Página Inicial</a>
     </div>
+    <a href="{% url 'home' %}" class="back-button">Voltar à página inicial</a>
 </body>
 </html>

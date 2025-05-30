@@ -20,12 +20,22 @@
         {% if paciente %}
             <h2 class="section-title">Dados do Paciente</h2>
             <div class="info-grid">
-                <div class="info-item"><p><strong>Nome:</strong> {{ paciente.nome_completo }}</p></div>
-                <div class="info-item"><p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p></div>
-                <div class="info-item"><p><strong>Idade:</strong> {{ paciente.get_idade }} anos</p></div>
-                <div class="info-item"><p><strong>CPF:</strong> {{ paciente.cpf|slice:":3" }}.***.***-** <small>(parcialmente oculto)</small></p></div>
+                <div class="info-item">
+                    <p><strong>Nome:</strong> {{ paciente.nome_completo }}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>Idade:</strong> {{ paciente.get_idade }} anos</p>
+                </div>
+                <div class="info-item">
+                    <p><strong>CPF:</strong> {{ paciente.cpf|slice:":3" }}.***.***-** <small>(parcialmente oculto)</small></p>
+                </div>
                 {% if paciente.medico_responsavel %}
-                    <div class="info-item"><p><strong>Médico Responsável Principal:</strong> Dr(a). {{ paciente.medico_responsavel.usuario.nome_completo }}</p></div>
+                    <div class="info-item">
+                        <p><strong>Médico Responsável Principal:</strong> Dr(a). {{ paciente.medico_responsavel.usuario.nome_completo }}</p>
+                    </div>
                 {% endif %}
             </div>
 
@@ -57,16 +67,63 @@
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="empty-state">Nenhuma observação de saúde (dos tipos selecionados para resumo) registrada recentemente.</p>
+                <div class="empty-state">
+                    <p>Nenhuma observação de saúde (dos tipos selecionados para resumo) registrada recentemente.</p>
+                </div>
             {% endif %}
         {% else %}
-            <p class="empty-state">Não foi possível carregar os dados do paciente. Tente novamente ou contate o hospital.</p>
+            <div class="empty-state">
+                <p>Não foi possível carregar os dados do paciente. Tente novamente ou contate o hospital.</p>
+            </div>
         {% endif %}
 
         <div class="actions">
-            <a href="{% url 'pacientes:consultar_prontuario_paciente' %}" class="btn-action">Nova Consulta</a>
-            <a href="{% url 'home' %}" class="btn-action secondary">Página Inicial</a>
+            <a href="{% url 'pacientes:consultar_prontuario_paciente' %}" class="btn-action">
+                <span></span> Nova Consulta
+            </a>
+            <a href="{% url 'home' %}" class="btn-action secondary">
+                <span></span> Página Inicial
+            </a>
         </div>
     </div>
+    <a href="{% url 'home' %}" class="botao-voltar-home">Voltar à Página Inicial</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.info-item, .observacao-item');
+            items.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease-out';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            const buttons = document.querySelectorAll('.btn-action');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.02)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            const container = document.querySelector('.container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.8s ease-out';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 200);
+        });
+        function imprimirProntuario() {
+            window.print();
+        }
+    </script>
 </body>
 </html>
