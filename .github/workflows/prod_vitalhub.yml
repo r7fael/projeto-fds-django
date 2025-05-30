@@ -24,17 +24,17 @@ jobs:
         run: python -m venv venv
       
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: |
+          source venv/bin/activate
+          pip install -r requirements.txt
       
       - name: Cleaning testing files for package (if any committed by mistake)
         run: |
           rm -f db.sqlite3
-          # rm -f .env # .env não deve estar no repositório
-
+      
       - name: Create deployment package
         run: |
-          # Exclui arquivos/pastas não necessários para o deploy do Django
-          zip -r release.zip . -x "venv/*" "*.sqlite3" "__pycache__/*" "*.pyc" ".git/*" ".github/*" "cypress/*" "node_modules/*" "cypress.config.js" "package.json" "package-lock.json" "README.md" "*.log" ".env*" "Procfile_dev" "requirements_dev.txt" # Adicione outros que não precise
+          zip -r release.zip . -x "venv/*" "*.sqlite3" "__pycache__/*" "*.pyc" ".git/*" ".github/*" "cypress/*" "node_modules/*" "cypress.config.js" "package.json" "package-lock.json" "README.md" "*.log" ".env*" "Procfile_dev" "requirements_dev.txt"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -54,24 +54,20 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Create and start virtual environment for tests
-        run: |
-          python -m venv venv_test # Ambiente virtual para os testes
-          source venv_test/bin/activate
+      - name: Create virtual environment for tests
+        run: python -m venv venv_test
       
       - name: Install Python dependencies for tests (Django, etc.)
-        run: pip install -r requirements.txt
+        run: |
+          source venv_test/bin/activate
+          pip install -r requirements.txt
       
       - name: Apply Django migrations (for a test DB)
         run: |
           source venv_test/bin/activate
-          # Para testes E2E, é comum usar um DB limpo. 
-          # Se db.sqlite3 for usado, ele será criado aqui se não existir.
-          rm -f db.sqlite3 # Garante um DB limpo para cada execução de teste se SQLite
+          rm -f db.sqlite3 
           python manage.py migrate --noinput 
-          # Se você tem 'seeders' ou dados iniciais para teste:
-          # python manage.py loaddata initial_test_data.json
-
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -91,14 +87,11 @@ jobs:
       - name: Start Django development server for E2E tests
         run: |
           source venv_test/bin/activate
-          # Inicia o servidor Django em background.
-          # A baseUrl 'http://127.0.0.1:8000/' no cypress.config.js deve corresponder.
           python manage.py runserver 0.0.0.0:8000 &
 
       - name: Run Cypress E2E tests
         uses: cypress-io/github-action@v6
         with:
-
           wait-on: 'http://127.0.0.1:8000' 
           wait-on-timeout: 180 
           browser: chrome
