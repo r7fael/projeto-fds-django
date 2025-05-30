@@ -96,7 +96,6 @@ jobs:
           # Inicia o servidor Django em background.
           # A baseUrl 'http://127.0.0.1:8000/' no cypress.config.js deve corresponder.
           python manage.py runserver 0.0.0.0:8000 &
-        env:
 
       - name: Run Cypress E2E tests
         uses: cypress-io/github-action@v6
@@ -106,7 +105,6 @@ jobs:
           wait-on-timeout: 180 
           browser: chrome
           headless: true
-        env:
           
       - name: Upload Cypress artifacts (videos, screenshots)
         if: always() 
