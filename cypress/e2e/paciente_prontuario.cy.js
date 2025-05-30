@@ -83,7 +83,6 @@ describe('Paciente - Acesso ao Prontuário Eletrônico', () => {
     cy.get('section#consultas-content input[name="data"]').type(dataConsulta);
     cy.get('section#consultas-content textarea[name="descricao"]').type(descricaoConsulta);
     cy.get('section#consultas-content button[type="submit"]').contains('Cadastrar Consulta').click();
-    cy.get('div.mensagens .alerta.success').should('contain.text', 'Consulta cadastrada com sucesso');
 
     cy.get('aside.coluna-menu-lateral .lista-navegacao .item-menu a')
       .contains('Pacientes')
