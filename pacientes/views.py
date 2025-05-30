@@ -6,6 +6,7 @@ from pacientes.models import Paciente, ObservacaoSaude
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
+from datetime import datetime
 
 @login_required
 def cadastrar_paciente(request):
@@ -83,7 +84,7 @@ def medico_pacientes(request):
                         paciente = Paciente.objects.get(id=paciente_id, medico_responsavel=medico)
                         ObservacaoSaude.objects.create(
                             paciente=paciente,
-                            autor=medico,
+                            autor_medico=medico,
                             tipo=tipo,
                             observacao=observacao_texto,
                             data_criacao=timezone.now()
@@ -109,28 +110,34 @@ def medico_pacientes(request):
 def adicionar_observacao(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
     
-    if hasattr(request.user, 'medico'):
-        if paciente.medico_responsavel != request.user.medico:
-            raise PermissionDenied("Você não tem permissão para adicionar observações a este paciente")
-    elif not hasattr(request.user, 'enfermeiro'):
-        raise PermissionDenied("Acesso restrito a profissionais de saúde")
-    
+    usuario_eh_medico = hasattr(request.user, 'medico') and request.user.medico is not None
+    usuario_eh_enfermeiro = hasattr(request.user, 'enfermeiro') and request.user.enfermeiro is not None
+
+    if usuario_eh_medico:
+        medico_atual = request.user.medico
+        if paciente.medico_responsavel != medico_atual:
+            raise PermissionDenied("Você não tem permissão para adicionar observações a este paciente, pois não é o médico responsável.")
+    elif not usuario_eh_enfermeiro:
+        raise PermissionDenied("Acesso restrito a médicos e enfermeiros cadastrados.")
+
     if request.method == 'POST':
         tipo = request.POST.get('tipo')
         observacao_texto = request.POST.get('observacao', '').strip()
         
         if tipo and observacao_texto:
-            autor = None
-            if hasattr(request.user, 'medico'):
-                autor = request.user.medico
+            dados_para_criar_observacao = {
+                'paciente': paciente,
+                'tipo': tipo,
+                'observacao': observacao_texto,
+                'data_criacao': timezone.now()
+            }
             
-            ObservacaoSaude.objects.create(
-                paciente=paciente,
-                autor=autor,
-                tipo=tipo,
-                observacao=observacao_texto,
-                data_criacao=timezone.now()
-            )
+            if usuario_eh_medico:
+                dados_para_criar_observacao['autor_medico'] = request.user.medico
+            elif usuario_eh_enfermeiro:
+                dados_para_criar_observacao['autor_enfermeiro'] = request.user.enfermeiro
+            
+            ObservacaoSaude.objects.create(**dados_para_criar_observacao)
             messages.success(request, 'Observação adicionada com sucesso!')
             return redirect('application:visualizar_paciente', paciente_id=paciente.id)
         else:
@@ -175,3 +182,51 @@ def visualizar_paciente(request, paciente_id):
         'observacoes': observacoes,
         'tipos_observacao': ObservacaoSaude.TIPO_CHOICES
     })
+    
+def consultar_prontuario_paciente(request):
+    if request.method == 'POST':
+        cpf = request.POST.get('cpf', '').strip()
+        data_nascimento_str = request.POST.get('data_nascimento', '').strip()
+
+        if not cpf or not data_nascimento_str:
+            messages.error(request, 'Por favor, preencha o CPF e a Data de Nascimento.')
+            return render(request, 'application/consultar_prontuario_form.html')
+
+        try:
+            data_nascimento_obj = datetime.strptime(data_nascimento_str, '%Y-%m-%d').date()
+        except ValueError:
+            messages.error(request, 'Formato de Data de Nascimento inválido. Use AAAA-MM-DD.')
+            return render(request, 'application/consultar_prontuario_form.html')
+
+        try:
+            paciente = Paciente.objects.get(cpf=cpf, data_nascimento=data_nascimento_obj)
+            return redirect('pacientes:visualizar_prontuario_publico', cpf=paciente.cpf, data_nascimento_str=data_nascimento_str)
+
+        except Paciente.DoesNotExist:
+            messages.error(request, 'Paciente não encontrado com os dados fornecidos. Verifique as informações ou entre em contato com o hospital.')
+        except Paciente.MultipleObjectsReturned:
+            messages.error(request, 'Múltiplos registros encontrados para estes dados. Por favor, contate o suporte do hospital.')
+        except Exception as e:
+            messages.error(request, f'Ocorreu um erro: {e}')
+
+    return render(request, 'application/consultar_prontuario_form.html')
+
+
+def visualizar_prontuario_publico(request, cpf, data_nascimento_str):
+    try:
+        data_nascimento_obj = datetime.strptime(data_nascimento_str, '%Y-%m-%d').date()
+        paciente = get_object_or_404(Paciente, cpf=cpf, data_nascimento=data_nascimento_obj)
+        observacoes = paciente.observacoes.filter(tipo__in=['geral', 'evolucao']).order_by('-data_criacao')[:5]
+        context = {
+            'paciente': paciente,
+            'observacoes': observacoes,
+        }
+        return render(request, 'application/visualizar_prontuario_resumo.html', context)
+
+    except ValueError:
+        messages.error(request, 'Dados inválidos para visualização.')
+        return redirect('pacientes:consultar_prontuario_paciente')
+    
+    except Exception as e:
+        messages.error(request, f'Ocorreu um erro ao carregar o prontuário: {e}')
+        return redirect('pacientes:consultar_prontuario_paciente')

@@ -1,0 +1,252 @@
+{% extends 'application/base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Farmacêutico</title>
+    <link rel="stylesheet" href="{% static 'css/painel_farmaceutico.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Farmácia</h2>
+            </div>
+            <ul class="menu">
+                <li class="active" data-section="home">
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li data-section="medicamentos">
+                    <a href="#"><i class="fas fa-pills"></i> Medicamentos</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="top-nav">
+                <div class="search">
+                    <input type="text" placeholder="Pesquisar..." id="search-input">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-profile">
+                    <span>Farmacêutico: {{ user.username }}</span>
+                    <img src="{% static 'img/farmaceutico-icon.png' %}" alt="Profile">
+                </div>
+            </div>
+
+            <div class="content-sections">
+                <section id="home-section" class="section active">
+                    <h2>Bem-vindo ao Painel Farmacêutico</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <h3>Total de Medicamentos</h3>
+                            <p>{{ medicamentos.count }} medicamentos</p>
+                            <i class="fas fa-pills"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="medicamentos-section" class="section">
+                    <div class="section-header">
+                        <h2>Gestão de Medicamentos</h2>
+                        <button class="btn-add" id="add-med-btn"><i class="fas fa-plus"></i> Adicionar Medicamento</button>
+                    </div>
+
+                    <div id="add-med-form" style="display: none; margin-bottom: 20px; background: #f8f9fa; padding: 20px; border-radius: 5px;">
+                        <form method="POST" action="{% url 'medicamentos:adicionar' %}">
+                            {% csrf_token %}
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Nome do Medicamento *</label>
+                                    <input type="text" name="nome" required class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Princípio Ativo</label>
+                                    <input type="text" name="principio_ativo" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantidade *</label>
+                                    <input type="number" name="quantidade" required class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Validade</label>
+                                    <input type="date" name="validade" class="form-input">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">
+                                    <i class="fas fa-save"></i> Salvar Medicamento
+                                </button>
+                                <button type="button" id="cancel-add" class="btn-cancel">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="edit-modal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close-modal">&times;</span>
+                            <h3>Editar Medicamento</h3>
+                            <form id="edit-med-form" method="POST">
+                                {% csrf_token %}
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Nome do Medicamento *</label>
+                                        <input type="text" name="nome" id="edit-nome" required class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Princípio Ativo</label>
+                                        <input type="text" name="principio_ativo" id="edit-principio" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantidade *</label>
+                                        <input type="number" name="quantidade" id="edit-quantidade" required class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Validade</label>
+                                        <input type="date" name="validade" id="edit-validade" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-save">
+                                        <i class="fas fa-save"></i> Atualizar Medicamento
+                                    </button>
+                                    <button type="button" class="btn-cancel close-modal-btn">
+                                        <i class="fas fa-times"></i> Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="medicamentos-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Princípio Ativo</th>
+                                    <th>Quantidade</th>
+                                    <th>Validade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicamento in medicamentos %}
+                                <tr>
+                                    <td>{{ medicamento.id }}</td>
+                                    <td>{{ medicamento.nome }}</td>
+                                    <td>{{ medicamento.principio_ativo }}</td>
+                                    <td class="{% if medicamento.quantidade <= 5 %}stock-low{% endif %}">
+                                        {{ medicamento.quantidade }}
+                                    </td>
+                                    <td>{{ medicamento.validade|date:"d/m/Y"|default:"-" }}</td>
+                                    <td class="actions">
+                                        <button class="btn-edit edit-btn" 
+                                                data-id="{{ medicamento.id }}"
+                                                data-nome="{{ medicamento.nome }}"
+                                                data-principio="{{ medicamento.principio_ativo }}"
+                                                data-quantidade="{{ medicamento.quantidade }}"
+                                                data-validade="{{ medicamento.validade|date:'Y-m-d' }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <form method="POST" action="{% url 'medicamentos:excluir' medicamento.id %}" class="delete-form">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir este medicamento?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="no-data">Nenhum medicamento cadastrado</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    document.getElementById('add-med-btn').addEventListener('click', function() {
+        document.getElementById('add-med-form').style.display = 'block';
+    });
+    
+    document.getElementById('cancel-add').addEventListener('click', function() {
+        document.getElementById('add-med-form').style.display = 'none';
+    });
+
+    document.querySelectorAll('.menu li').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.menu li').forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            this.classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const sectionId = this.getAttribute('data-section') + '-section';
+            document.getElementById(sectionId).classList.add('active');
+        });
+    });
+
+    document.getElementById('search-input').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.medicamentos-table tbody tr');
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchValue) ? '' : 'none';
+        });
+    });
+
+    const modal = document.getElementById('edit-modal');
+    const editForm = document.getElementById('edit-med-form');
+    
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const nome = this.getAttribute('data-nome');
+            const principio = this.getAttribute('data-principio');
+            const quantidade = this.getAttribute('data-quantidade');
+            const validade = this.getAttribute('data-validade');
+            
+            document.getElementById('edit-nome').value = nome;
+            document.getElementById('edit-principio').value = principio;
+            document.getElementById('edit-quantidade').value = quantidade;
+            document.getElementById('edit-validade').value = validade;
+            
+            editForm.action = `/medicamentos/editar/${id}/`;
+            modal.style.display = 'block';
+        });
+    });
+    
+    document.querySelector('.close-modal').addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    document.querySelector('.close-modal-btn').addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

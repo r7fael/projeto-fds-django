@@ -13,7 +13,7 @@ body {
 .container {
     text-align: center;
     background-color: white;
-    padding: 50px;
+    padding: 40px; 
     border-radius: 12px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     width: 90%;
@@ -25,13 +25,25 @@ header {
     background-color: #004b87;
     color: white;
     padding: 20px;
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px 12px 0 0; 
+    margin: -40px -40px 20px -40px; 
     font-size: 24px;
     font-weight: bold;
 }
 
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+header p {
+    margin: 5px 0 0;
+    font-size: 0.8em; 
+    font-weight: normal;
+}
+
+
 .intro {
-    margin: 20px 0;
+    margin: 30px 0; 
     font-size: 18px;
     color: #333;
 }
@@ -39,7 +51,8 @@ header {
 .menu {
     margin-top: 30px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center; 
     gap: 15px;
 }
 
@@ -53,17 +66,29 @@ header {
     font-weight: bold;
     font-size: 16px;
     transition: background 0.3s, transform 0.2s;
+    width: 80%;
+    max-width: 300px; 
+    box-sizing: border-box;
 }
 
 .btn:hover {
     background-color: #006bb3;
-    transform: scale(1.05);
+    transform: scale(1.03); 
 }
 
 .btn:active {
     background-color: #003366;
     transform: scale(0.98);
 }
+
+.btn.btn-paciente {
+    background-color: #28a745; 
+}
+
+.btn.btn-paciente:hover {
+    background-color: #218838;
+}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }

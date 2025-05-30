@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do Prontuário - {{ paciente.nome_completo }} - VitalHub</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pacientes_prontuario.css' %}">
+</head>
+<body>
+    <div class="page-header">
+        <h1>VitalHub - Resumo do Prontuário</h1>
+    </div>
+
+    <div class="container">
+        <div class="alert-warning">
+            <p><strong>Atenção:</strong> As informações apresentadas aqui são um resumo do seu prontuário e <strong>não substituem</strong> uma consulta ou avaliação médica completa. Para informações detalhadas, exames ou em caso de dúvidas, procure o hospital ou seu médico.</p>
+        </div>
+
+        {% if paciente %}
+            <h2 class="section-title">Dados do Paciente</h2>
+            <div class="info-grid">
+                <div class="info-item"><p><strong>Nome:</strong> {{ paciente.nome_completo }}</p></div>
+                <div class="info-item"><p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p></div>
+                <div class="info-item"><p><strong>Idade:</strong> {{ paciente.get_idade }} anos</p></div>
+                <div class="info-item"><p><strong>CPF:</strong> {{ paciente.cpf|slice:":3" }}.***.***-** <small>(parcialmente oculto)</small></p></div>
+                {% if paciente.medico_responsavel %}
+                    <div class="info-item"><p><strong>Médico Responsável Principal:</strong> Dr(a). {{ paciente.medico_responsavel.usuario.nome_completo }}</p></div>
+                {% endif %}
+            </div>
+
+            <h2 class="section-title">Medicamentos Prescritos</h2>
+            <div class="info-item medicamentos-info">
+                {% if paciente.medicamentos %}
+                    <p>{{ paciente.medicamentos|linebreaksbr }}</p>
+                {% else %}
+                    <p>Nenhum medicamento registrado no momento neste resumo.</p>
+                {% endif %}
+            </div>
+
+            <h2 class="section-title">Últimas Observações de Saúde</h2>
+            {% if observacoes %}
+                <ul class="observacoes-list">
+                    {% for obs in observacoes %}
+                        <li class="observacao-item">
+                            <div class="meta">
+                                <strong>Data:</strong> {{ obs.data_criacao|date:"d/m/Y H:i" }} <br>
+                                <strong>Tipo:</strong> {{ obs.get_tipo_display }}
+                                {% if obs.get_autor_display %}
+                                   <br><strong>Registrado por:</strong> {{ obs.get_autor_display }}
+                                {% endif %}
+                            </div>
+                            <div class="texto">
+                                {{ obs.observacao|linebreaksbr }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Nenhuma observação de saúde (dos tipos selecionados para resumo) registrada recentemente.</p>
+            {% endif %}
+        {% else %}
+            <p class="empty-state">Não foi possível carregar os dados do paciente. Tente novamente ou contate o hospital.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{% url 'pacientes:consultar_prontuario_paciente' %}" class="btn-action">Nova Consulta</a>
+            <a href="{% url 'home' %}" class="btn-action secondary">Página Inicial</a>
+        </div>
+    </div>
+</body>
+</html>
