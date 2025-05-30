@@ -43,7 +43,7 @@ Cypress.Commands.add('cadastrarProfissional', (email, nome, senha, tipoUsuario, 
   cy.get('input[name="nome_completo"]').type(nome);
   cy.get('input[name="senha"]').type(senha);
   cy.get('input[name="confirmar_senha"]').type(senha);
-  cy.get('select[name="tipo_usuario"]').select(tipoUsuario.toLowerCase());
+  cy.get('select[name="tipo_usuario"]').select(tipoUsuario);
   cy.get('input[name="registro_profissional"]').type(registroProfissional);
   cy.get('button[type="submit"]').contains('Cadastrar').click();
   cy.url().should('include', '/users/login/');
