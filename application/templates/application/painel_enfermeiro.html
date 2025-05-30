@@ -229,6 +229,27 @@
                     {% endfor %}
                 </div>
             </div>
+
+            <div id="modal-atribuir" class="modal">
+                <div class="modal-conteudo">
+                    <span class="fechar-modal">&times;</span>
+                    <h3>Atribuir Paciente ao Quarto</h3>
+                    <form method="post" action="{% url 'andares:atribuir_quarto' %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="quarto-id" name="quarto_id">
+                        <div class="form-group">
+                            <label for="paciente">Selecione o paciente:</label>
+                            <select name="paciente_id" id="paciente" required>
+                                <option value="">Selecione um paciente</option>
+                                {% for paciente in pacientes_disponiveis %}
+                                    <option value="{{ paciente.id }}">{{ paciente.nome_completo }} ({{ paciente.cpf }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-confirmar">Confirmar Atribuição</button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
 </div>
