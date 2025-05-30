@@ -153,6 +153,3 @@ Plataforma de comunicação:
 **CI/CD com build e deployment atualizado**
 [CI/CD]()
 [Screencast_CI/CD] ()
-
-**CONTRIBUTING.md**
-![link]()
