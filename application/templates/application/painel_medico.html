@@ -21,6 +21,9 @@
         </ul>
     </aside>
 
+
+<a href="{% url 'home' %}" class="botao-voltar-home">Voltar à Página Inicial</a>
+
     <main class="coluna-conteudo-principal">
         <header class="cabecalho-pagina">
             <h1 class="titulo-pagina" id="titulo-pagina">Bem-vindo(a), {{ medico.usuario.nome_completo }}</h1>
@@ -28,13 +31,13 @@
 
         <section id="home-content">
             <div class="caixa-notificacoes-dia">
-                <h2 class="titulo-notificacao-dia">📢 Notificações</h2>
+                <h2 class="titulo-notificacao-dia">Notificações</h2>
                 <ul class="lista-resumo-notificacoes">
                     <li class="item-resumo">
-                        📅 Você tem <strong>{{ qtd_consultas_hoje }}</strong> consulta(s) marcada(s) para hoje.
+                        Você tem <strong>{{ qtd_consultas_hoje }}</strong> consulta(s) marcada(s) para hoje.
                     </li>
                     <li class="item-resumo">
-                        🔁 <strong>{{ qtd_pacientes_retorno }}</strong> paciente(s) precisam de retorno.
+                        <strong>{{ qtd_pacientes_retorno }}</strong> paciente(s) precisam de retorno.
                     </li>
                 </ul>
             </div>

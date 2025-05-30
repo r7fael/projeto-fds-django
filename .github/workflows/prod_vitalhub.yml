@@ -37,7 +37,6 @@ jobs:
           rm -f db.sqlite3
           rm -f .env
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Create deployment package
         run: |

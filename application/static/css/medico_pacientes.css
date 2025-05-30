@@ -121,7 +121,6 @@
     box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
 }
 
-/* Save Button */
 .botao-salvar {
     background-color: var(--primary-blue);
     color: var(--text-light);

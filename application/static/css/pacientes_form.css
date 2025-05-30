@@ -1,23 +1,47 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-    background-color: #f0f4f8;
-    font-family: 'Roboto', sans-serif;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2030%20de%20mai.%20de%202025%2C%2009_32_02-0jmVULcXFAG0xXFgvnz96h4RA696iA.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     padding: 20px;
+    color: white;
+    line-height: 1.6;
+    position: relative;
+}
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(20, 184, 166, 0.7); 
+    z-index: -1;
 }
 
 .form-container {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(37, 99, 235, 0.3); 
+    backdrop-filter: blur(8px);
+    padding: 30px;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     width: 100%;
-    max-width: 480px;
+    max-width: 500px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 10;
+    animation: fadeIn 1s ease-in-out;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .vitalhub-header {
@@ -25,21 +49,25 @@ body {
 }
 
 .vitalhub-header h1 {
-    font-size: 2.2em;
-    color: #004b87;
+    font-size: 2.5rem;
+    color: white;
     margin: 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .form-container h2 {
-    color: #333;
+    color: white;
     margin-bottom: 10px;
-    font-size: 1.6em;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .form-container p {
-    color: #555;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 25px;
-    font-size: 0.95em;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -51,57 +79,84 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
-    color: #444;
-    font-size: 0.9em;
+    font-weight: 500;
+    color: white;
+    font-size: 1rem;
 }
 
 .form-group input[type="text"],
 .form-group input[type="date"] {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 1em;
-    transition: border-color 0.3s;
+    padding: 12px 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    backdrop-filter: blur(4px);
+}
+
+.form-group input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .form-group input[type="text"]:focus,
 .form-group input[type="date"]:focus {
-    border-color: #004b87;
+    border-color: rgba(255, 255, 255, 0.5);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 75, 135, 0.2);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+.form-group input[type="date"] {
+    appearance: none;
+    padding-right: 15px;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .btn-submit {
-    background-color: #005cb9;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.05em;
-    text-decoration: none;
-    display: inline-block;
     width: 100%;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease, transform 0.2s;
-    margin-top: 10px;
-    font-weight: bold;
+    padding: 12px;
+    background-color: rgba(34, 197, 94, 0.8); 
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    padding-left: 40px;
 }
 
 .btn-submit:hover {
-    background-color: #004b87;
+    background-color: rgb(34, 197, 94);
     transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .btn-submit:active {
     transform: translateY(0);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.btn-submit::before {
+    content: '📋';
+    position: absolute;
+    left: 15px;
+    font-size: 1rem;
 }
 
 .messages {
     list-style: none;
+    width: 100%;
     padding: 0;
     margin: 0 0 20px 0;
 }
@@ -109,34 +164,112 @@ body {
 .messages li {
     padding: 12px 15px;
     margin-bottom: 10px;
-    border-radius: 6px;
-    font-size: 0.9em;
+    border-radius: 0.5rem;
+    font-size: 14px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
     text-align: left;
-    border: 1px solid transparent;
 }
 
 .messages li.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-color: #f5c6cb;
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: rgba(248, 113, 113, 0.3); 
 }
 
 .messages li.success {
-    background-color: #d4edda;
-    color: #155724;
-    border-color: #c3e6cb;
+    background-color: rgba(34, 197, 94, 0.2); 
+    border-color: rgba(74, 222, 128, 0.3); 
 }
 
-.home-link {
-    display: block;
-    margin-top: 25px;
-    color: #005cb9;
+.messages li.info {
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.messages li.warning {
+    background-color: rgba(245, 158, 11, 0.2);
+    border-color: rgba(251, 191, 36, 0.3); 
+}
+
+.back-button {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    padding: 10px 15px;
     text-decoration: none;
-    font-size: 0.9em;
+    font-size: 14px;
     font-weight: 500;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.home-link:hover {
-    text-decoration: underline;
-    color: #004b87;
+.back-button::before {
+    content: '←';
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+@media (max-width: 600px) {
+    .form-container {
+        padding: 25px;
+    }
+    
+    .vitalhub-header h1 {
+        font-size: 2rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form-container p {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="date"] {
+        padding: 10px 12px;
+    }
+    
+    .btn-submit {
+        padding: 10px;
+        padding-left: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 20px;
+    }
+    
+    .vitalhub-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.3rem;
+    }
 }
