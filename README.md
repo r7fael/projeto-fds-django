@@ -142,7 +142,7 @@ Plataforma de comunicação:
 ![Bug Tracker]()
 
 **Deployment Atualizado**
-[Screencast]()
+[Screencast](https://vitalhub.azurewebsites.net/)
 
 **Screen cast novas historias no deployment**
 [Screencast]()
