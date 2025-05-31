@@ -139,7 +139,7 @@ Plataforma de comunicação:
 ![VitalHub_jira]()
 
 **Bug Tracker**
-![Bug Tracker]()
+![Bug Tracker](https://imgur.com/a/TuP6gUB)
 
 **Deployment Atualizado**
 [Link](https://vitalhub.azurewebsites.net/)
@@ -151,8 +151,7 @@ Plataforma de comunicação:
 [Screencast]()
 
 **Screencast Testes Automatizados Atualizados**
-[Screencast_testes]()
+[Screencast_testes](https://youtu.be/eoMrgLpu4KQ)
 
 **CI/CD com build e deployment atualizado**
-[CI/CD]()
-[Screencast_CI/CD] ()
+[Screencast_CI/CD](https://youtu.be/B5U74MbEzwU)
