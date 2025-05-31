@@ -139,7 +139,6 @@ Plataforma de comunicação:
 ![VitalHub_jira]()
 
 **Bug Tracker**
-![Bug Tracker]
 ![Bug Tracker](https://github.com/user-attachments/assets/fd2f99ef-7532-4267-abd4-373ef1ff96c3)
 
 **Deployment Atualizado**
