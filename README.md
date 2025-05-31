@@ -136,7 +136,8 @@ Plataforma de comunicação:
 [Screencast](https://youtu.be/eHUqnvpb4C8)
 
 **Nova sprint no jira**
-![VitalHub_jira]()
+![image](https://github.com/user-attachments/assets/e6d18e9e-9520-4984-aead-a361ba72e7f1)
+
 
 **Bug Tracker**
 ![Bug Tracker](https://github.com/user-attachments/assets/fd2f99ef-7532-4267-abd4-373ef1ff96c3)
