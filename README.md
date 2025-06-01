@@ -149,7 +149,7 @@ Plataforma de comunicação:
 [Screencast]()
 
 **Screen cast novas historias no deployment**
-[Screencast]()
+[Screencast](https://www.youtube.com/watch?v=E0mogXShgkk)
 
 **Screencast Testes Automatizados Atualizados**
 [Screencast_testes](https://youtu.be/eoMrgLpu4KQ)
